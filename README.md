@@ -15,36 +15,57 @@ Mengingat pentingnya digitalisasi untuk memulihkan perekonomian dunia, kelompok 
 
 
 ## Modul yang Diimplementasikan
-- Halaman utama
 
-Halaman ini berisi informasi umum seputar UMKM serta cara penggunaan website.
+### Login Module (Raden Dhaneswara Timur Bhamakrti Rasendriya)
+
 - Halaman login
 
 User yang telah mendaftarkan akun dapat memasukkan username dan password untuk masuk ke halaman website.
 - Halaman registrasi akun
 
+
 Pada halaman ini, pengguna baru atau Guest dapat mendaftarkan akun agar bisa login sebagai User.
+- Halaman FAQ
+
+Halaman ini berisi jawaban dari pertanyaan-pertanyaan yang umum ditanyakan pengguna Mercatura
+
+### Main Page & Web Review Module (Majid Rajendra Rahmat)
+- Halaman utama Mercatura
+
+Halaman ini berisi kisah inspiratif dari beberapa usaha secara singkat. User ataupun Guest dapat menceritakan kisahnya dan akan ditampilkan disini.
+
+- Halaman detail UMKM dan review website UMKM
+
+Halaman ini berisi detail rinci tentang UMKM. User dapat memberikan penilaian terhadap usaha tersebut. Penilaian akan menyimpan nilai dari 1-5, deskripsi penilaian, pemberi nilai, dan tanggal dinilai.
+
+
+### Article Module (Aidah Novallia Putri)
+
 - Halaman daftar artikel
 
 Halaman ini berisi daftar judul artikel seputar UMKM yang akan diurutkan berdasarkan artikel paling terkini.
-- Halaman detail artikel
 
-Halaman ini berisi isi artikel. User dapat memberikan komentar.
+
 - Halaman unggah artikel
 
 User dapat mengunggah artikel yaitu dengan mengisi judul dan isi artikel. Sebuah artikel akan menyimpan nama penulis, tanggal dan waktu diunggah, judul dan isi.
+
+### Article Comment Module (Katrina Gisella Sembiring)
+- Halaman detail artikel & Komentar artikel
+
+Halaman ini berisi isi artikel. User dapat menambahkan komentar. Sebuah komentar akan menyimpan penulis komentar, isi komentar, waktu pembuatan komentar.
+
+### UMKM Module (Raden Mohamad Adrian Ramadhan Hendar Wibawa)
 - Halaman daftar UMKM
 
 Halaman ini berisi daftar nama UMKM. Terdapat searchbox yang memungkinkan pengguna untuk mencari UMKM berdasarkan keyword ataupun filter berdasarkan bidang dan lokasi usaha. 
-- Halaman detail UMKM
 
-Halaman ini berisi detail rinci tentang UMKM.
 - Halaman tambah UMKM
 
 User dapat mendaftarkan UMKM yang dimilikinya. Sebuah data UMKM akan menyimpan nama usaha, bidang usaha, deskripsi usaha, kontak usaha, dan lokasi usaha, dan tautan ke website usaha jika ada.
-- Halaman FAQ
 
-Halaman ini berisi daftar pertanyaan yang umum ditanyakan beserta jawabannya.
+
+
 
 ### User Roles
 - Guest: Pengguna yang belum mendaftarkan akun dapat mengakses seluruh website, tetapi tidak dapat membuat artikel baru, mengomentari artikel, atau menambahkan UMKM baru.

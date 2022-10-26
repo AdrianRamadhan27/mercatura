@@ -7,4 +7,4 @@ class UMKM(models.Model):
     deskripsi_usaha = models.TextField()
     kontak_usaha = models.EmailField()
     lokasi_usaha = models.CharField(max_length=50)
-    website_usaha = models.URLField(default="https://www.google.com/search?q=" + str(nama_usaha))
+    website_usaha = models.URLField(default="https://www.google.com/")

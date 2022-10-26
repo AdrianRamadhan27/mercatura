@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block meta %}
+<title>{{umkm.nama_usaha}}</title>
+{% endblock meta %}
+
+{% block content %}  
+<h1>{{umkm.nama_usaha}}</h1>
+<h3>{{umkm.bidang_usaha}}</h3>
+<h3>{{umkm.lokasi_usaha}}</h3>
+<p>{{umkm.deskripsi_usaha}}</p>
+<br>
+<a href="mailto:{{umkm.kontak_usaha}}">{{umkm.kontak_usaha}}</a>
+<br>
+<a href="{{umkm.website_usaha}}">Visit our website</a>
+{% endblock content %}

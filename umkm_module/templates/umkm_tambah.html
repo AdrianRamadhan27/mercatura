@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block meta %}
+<title>Tambah UMKM</title>
+{% endblock meta %}
+
+{% block content %}  
+<form action="" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <input type="Submit" value="Tambahkan">
+</form>
+{% endblock content %}

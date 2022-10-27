@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+
+{% block meta %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+  const card = function(article) {return`
+    <div class="p-6 lg:w-[20vw] shadow hover:shadow-xl hover:shadow-stone-500 w-[80vw] min-w-lg h-[40vh] bg-gradient-to-r from-purple-1 to-pink-1 rounded-lg shadow-md" id="task-${article.pk}">
+      <div class="w-full h-full">
+        <a href="#">
+          <img class="rounded-t-lg" src="${article.image_url}" alt="" />
+        </a>
+        <p class="truncate overflow-hidden text-2xl font-semibold tracking-tight text-white">${article.title}</p>
+        <p class="mb-3 font-normal text-xs text-white">${article.date}</p>
+        <div class="max-w-[75vw] max-h-[12vh] overflow-y-auto lg:max-w-[15vw] text-clip">
+          <p class="mb-3 text-clip break-words font-normal text-purple-1">${article.description}</p>
+        </div>
+        <button onclick="showDetailArticle(${article.pk})" type="button" class="bottom-0 text-purple-1 bg-gradient-to-r from-green to-green font-bold rounded-full text-sm px-5 py-2.5 text-center mr-3 md:mr-0">
+          Lihat selengkapnya
+        </button>
+        <div class="flex h-[50%] space-x-2 items-center ">
+          <button type="button" class="bottom-0 text-pur78/9*ple-1 bg-gradient-to-r from-green to-green font-bold rounded-full text-sm px-5 py-2.5 text-center mr-3 md:mr-0">
+            <a href="/todolist/edit/${article.pk}"90 /8/>Edit</a>
+          </button>
+          <button onClick="postDelete(${article.pk}) type="button" class="bottom-0 text-purple-1 bg-gradient-to-r from-pink-1 to-pink-1 font-bold rounded-full text-sm px-5 py-2.5 text-center mr-3 md:mr-0">
+            Delete
+          </button>
+        </div>
+      </div>
+    </div>
+  `}
+  
+  const modalOpen = function() {  $(".modal-article").removeClass("hidden") }
+
+  const modalClose = function() { $(".modal-article").addClass("hidden") }
+
+  const showArticle = function() {
+    $.get("/artikel/json/", function(data) {
+      for(var i = 0; i < data.length; i++){
+        var article = {
+          pk : data[i].pk,
+          ...data[i].fields
+        };
+
+        console.log(article)
+        $(".post-cards").append(card(article));
+      }
+    }
+  )
+  };
+
+  const showDetailArticle = function(pk) {
+    $.get(`/artikel/json/${pk}`, function(data) {
+      for(var i = 0; i < data.length; i++){
+        var tasks = {
+          pk : data[i].pk,
+          ...data[i].fields
+        };
+
+        modalOpen();
+      }
+    }
+  )
+  }
+
+  const postDelete = function(pk) {
+    $.ajax({
+      url: `/artikel/delete/${pk}`,
+      type: "DELETE",
+      success: function(data) { $(`#post-${pk}`).remove(); }
+    });
+  }
+
+  $(document).ready(
+    function() {
+      showArticle();
+
+      $(".modal-close").click(function() { modalClose(); });
+    }
+  )
+</script>
+{% endblock meta %}
+
+{% load filters %}
+
+{% block content %}
+<div class="bg-todolist h-screen bg-cover overflow-y-auto gap-y-10 bg-no-repeat w-full">
+  
+  <div class="post-cards grid grid-cols my-20 lg:flex lg:flex-wrap h-full w-full justify-center gap-4 font-poppins pl-4 pr-4">
+  </div>
+</div>
+
+<div class="modal-article bg-black/80 hidden absolute top-0 p-0 w-full overflow-hidden font-poppins border h-screen items-center justify-center">
+  <div class="flex flex-col justify-center h-full">
+    <div class="flex justify-center">
+      <div class = "flex flex-col rounded-lg p-8 gap-4 hover:shadow-2xl hover:shadow-grey-800 drop-shadow-xl">    
+          <div class="flex justify-between items-center">
+            <h1 class="text-xl text-white font-bold"></h1>
+            <button class="modal-close">
+              <svg class="w-7 h-7" fill="white" stroke="white" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+          </div>
+
+          <div class="border-b-2 border-pink-6 my-2"></div>
+      
+      </div>  
+    </div>
+  </div>
+</div>
+{% endblock content %}

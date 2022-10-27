@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+{% block meta %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+  const articlePost = function(article) {
+    $.post("/artikel/create/", {
+      ...article,
+      csrfmiddlewaretoken: "{{ csrf_token }}"
+    },
+
+    function(data) {
+      console.log('hla')
+    })
+  }
+
+  $(document).ready(
+    function() {
+      $(".submit-article").click(function() {
+        const article = {
+          title: $(".inp-title").val(),
+          image_url: $(".inp-img-url").val(),
+          description: $(".inp-description").val()
+        }
+    
+        articlePost(article);
+        return false;
+      });
+    }
+  )
+</script>
+
+{% endblock meta %}
+
+{% load filters %}
+
+{% block content %}
+<div class="h-screen w-full flex justify-center items-center font-poppins bg-purple-3">
+  <div class="flex flex-col w-[60%] p-10 gap-6">
+    <div class="text-pink-1 text-center font-bold text-4xl mb-6"> 
+      <h1>Create New Article</h1>
+    </div>
+  
+    <form method="POST" >
+      {% csrf_token %}
+          <div class="flex flex-col w-full gap-4">
+            <div class="flex items-start justify-between w-full space-x-8">
+              <p class="text-purple-1 text-lg font-semibold">Title</p>
+              {{ form.title|addclass:"inp-title caret-pink-1 rounded-lg py-2 px-2 w-[80%]"}}
+            </div>
+            <div class="flex items-start justify-between space-x-4">
+              <p class="text-purple-1 text-lg font-semibold">Image URL</p>
+              {{ form.image_url|addclass:"inp-img-url caret-pink-1 rounded-lg py-2 px-2 w-[80%]"}}
+            </div>
+            <div class="flex items-start justify-between space-x-4">
+              <p class="text-purple-1 text-lg font-semibold">Description</p>
+              {{ form.description|addclass:"inp-description caret-pink-1 rounded-lg px-2 w-[80%] h-40"}}
+            </div>
+          </div>
+
+        <div class="font-poppins text-xs text-center font-bold text-pink-1 mt-2 mb-10">
+          {{ form.title.errors }}
+          {{ form.description.errors }}
+          {{ form.image_url.errors }}
+        </div>
+
+        <button class="submit-article w-full">
+          <input class="text-white mt-2 w-auto bg-gradient-to-r hover:bg-gradient-to-l from-purple-1 to-pink-1 font-extrabold rounded-lg text-md md:px-5 md:py-2 px-7 py-3 text-center mr-2 mb-2" type="submit" name="submit" value="Submit">
+        </button>
+      </div>
+    </form>
+  </div>
+
+  {% if messages %}  
+  <ul>   
+      {% for message in messages %}  
+          <li>{{ message }}</li>  
+          {% endfor %}  
+  </ul>   
+  {% endif %}
+</div>
+{% endblock content %}

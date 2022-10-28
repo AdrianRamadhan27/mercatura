@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+
+  {% block meta %}
+  {% endblock meta %}
+</head>
+{% block content %}
+<body class="bg-purple-1">
+    <div class = "h-screen flex flex-col items-center justify-center">
+        
+        <div class="w-full max-w-xs">
+            <form method="POST" class="bg-white shadow-md rounded px-10 pt-8 pb-10 mb-6">
+                
+                {% csrf_token %}
+                <h1 class="block text-black-1000 text-xl font-bold mb-2">Register Account</h1>
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="username">Username</label>
+                    <input type="text" name="username" placeholder="Username" required
+                    class="form-control bg-charcoal-700 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                </div>
+                
+                <div class="mb-6">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="password1">Password</label>
+                    <input type="password" name="password1" placeholder="Enter a Password" required
+                    class="form-control bg-charcoal-700 border border-gray-300 text-gray-400 text-sm rounded-lg focus:ring-red-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                </div>
+                
+                <div class="mb-6">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="password2">Konfirmasi Password</label>
+                    <input type="password" name="password2" placeholder="Confirm Password" required
+                    class="form-control bg-charcoal-700 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                </div>
+                
+                {% for message in messages %}
+                <h1 class="text-sm text-red-500 mt-2">{{ message }}</h1>
+                {% endfor %}
+                <div class="mt-6">
+                    <button
+                        class="btn login_btn w-full bg-blue-700 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                        type="submit" value="Login">
+                        Register
+                    </button>
+                </div>
+                <a href="{% url 'mercatura:login' %}">
+                </a>
+            </form>
+        </div>
+    </div>
+</body>
+{% endblock content %}

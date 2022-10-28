@@ -20,4 +20,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('mercatura.urls')),
     path('umkm/', include('umkm_module.urls')),
+    path('kritiksaran/', include('kritiksaran_module.urls'))
+
 ]

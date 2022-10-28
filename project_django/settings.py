@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'mercatura',
     'umkm_module',
+    'kritiksaran_module'
 ]
 
 MIDDLEWARE = [

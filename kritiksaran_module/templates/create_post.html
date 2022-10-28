@@ -1,0 +1,76 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+    </head>
+    <style>
+        body {
+            font-family: 'Poppins';
+        }
+    </style>
+    <body>
+        <h1 style="color: purple; padding-left: 25mm; padding-top: 10mm;">Kritik dan Saran </h1>
+        <div class="container pt-5">
+            <form method="POST" id="post-form">
+                {% csrf_token %}
+                Judul
+                <div class="form-group">
+                    {{ form.title }}
+               </div>
+               Deskripsi
+                <div class="form-group">
+                    {{ form.description }}
+                </div>
+                <button type="submit" class="btn btn-primary" style="background-color: #5E239D; color: white;">Submit</button>
+            </form>
+            <div class="row mb-2 posts">
+                    {% for post in posts %}
+                    <div class="col-sm-3 col-md-10">
+                        <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                            <div class="col p-4 d-flex flex-column position-static" style="background-color: #E2DBFD">
+                                <h3 class="mb-0">{{post.title}}</h3>
+                                <p class="mb-auto">{{post.description}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    
+            </div>
+        </div>
+
+    </body>
+    <script src="/static/js/jquery-2.2.4.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>	
+    <script>
+        $(document).on('submit', '#post-form',function(e){
+            e.preventDefault();
+            $.ajax({
+                type:'POST',
+                url:'{% url "kritiksaran_module:create_post" %}',
+                data:{
+                    title:$('#title').val(),
+                    description:$('#description').val(),
+                    csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+                    action: 'post'
+                },
+                success:function(json){
+                    document.getElementById("post-form").reset();
+                    $(".posts").prepend('<div class = "col-sm-3 col-md-10">'+
+                        '<div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">' +
+                            '<div class="col p-4 d-flex flex-column position-static" style="background-color: #E2DBFD">' +
+                                '<h3 class="mb-0">' + json.title + '</h3>' +
+                                '<p class="mb-auto">' + json.description + '</p>' +
+                            '</div>' +
+                        '</div>' +
+                    '</div>' 
+                    )
+                },
+                error : function(xhr,errmsg,err) {
+                $('#results').html("<div class='alert-box alert radius' data-alert>Oops! We have encountered an error: "+errmsg+
+                    " <a href='#' class='close'>&times;</a></div>"); // add the error to the dom
+                console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
+            }
+            });
+        });
+    </script>
+</html>>

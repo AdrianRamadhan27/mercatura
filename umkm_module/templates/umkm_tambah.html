@@ -5,10 +5,11 @@
 {% endblock meta %}
 
 {% block content %}  
-<form action="" method="post">
+<form action="" method="post" enctype="multipart/form-data">
     {% csrf_token %}
-    {{ form.as_p }}
+    
 
+    {{form}}
     <input type="Submit" value="Tambahkan">
 </form>
 {% endblock content %}

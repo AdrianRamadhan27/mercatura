@@ -10,7 +10,7 @@
     },
 
     function(data) {
-      console.log('hla')
+      $(location).attr('href',"/artikel/");
     })
   }
 
@@ -36,25 +36,27 @@
 
 {% block content %}
 <div class="h-screen w-full flex justify-center items-center font-poppins bg-purple-3">
-  <div class="flex flex-col w-[60%] p-10 gap-6">
+  <div class="flex flex-col w-[90%] h-full p-10 gap-6">
     <div class="text-pink-1 text-center font-bold text-4xl mb-6"> 
       <h1>Create New Article</h1>
     </div>
   
     <form method="POST" >
       {% csrf_token %}
-          <div class="flex flex-col w-full gap-4">
-            <div class="flex items-start justify-between w-full space-x-8">
-              <p class="text-purple-1 text-lg font-semibold">Title</p>
-              {{ form.title|addclass:"inp-title caret-pink-1 rounded-lg py-2 px-2 w-[80%]"}}
+          <div class="flex space-x-10">
+            <div class="flex flex-col w-[50%] gap-4">
+              <div class="flex flex-col items-start w-full">
+                <p class="text-purple-1 text-lg font-semibold">Title</p>
+                {{ form.title|addclass:"inp-title caret-pink-1 shadow-lg rounded-lg py-2 px-2 w-full"}}
+              </div>
+              <div class="flex flex-col items-start justify-between">
+                <p class="text-purple-1 text-lg font-semibold">Image URL</p>
+                {{ form.image_url|addclass:"inp-img-url caret-pink-1 shadow-lg rounded-lg py-2 px-2 w-full"}}
+              </div>
             </div>
-            <div class="flex items-start justify-between space-x-4">
-              <p class="text-purple-1 text-lg font-semibold">Image URL</p>
-              {{ form.image_url|addclass:"inp-img-url caret-pink-1 rounded-lg py-2 px-2 w-[80%]"}}
-            </div>
-            <div class="flex items-start justify-between space-x-4">
+            <div class="flex flex-col w-[50%] items-start justify-between">
               <p class="text-purple-1 text-lg font-semibold">Description</p>
-              {{ form.description|addclass:"inp-description caret-pink-1 rounded-lg px-2 w-[80%] h-40"}}
+              {{ form.description|addclass:"inp-description focus:outline-purple-1 caret-pink-1 shadow-lg rounded-lg w-full h-80"}}
             </div>
           </div>
 
@@ -65,7 +67,7 @@
         </div>
 
         <button class="submit-article w-full">
-          <input class="text-white mt-2 w-auto bg-gradient-to-r hover:bg-gradient-to-l from-purple-1 to-pink-1 font-extrabold rounded-lg text-md md:px-5 md:py-2 px-7 py-3 text-center mr-2 mb-2" type="submit" name="submit" value="Submit">
+          <input class="text-white mt-2 w-auto bg-gradient-to-r hover:bg-gradient-to-l from-purple-1 to-pink-1 font-extrabold rounded-lg text-md md:px-5 md:py-2 px-4 py-2 text-center mb-2" type="submit" name="submit" value="Submit Article">
         </button>
       </div>
     </form>

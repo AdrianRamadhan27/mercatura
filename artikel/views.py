@@ -41,18 +41,32 @@ def create_artikel(request):
       deskripsi = post_form.cleaned_data["description"]
       image_url = post_form.cleaned_data["image_url"]
       Post.objects.create(title=judul, description=deskripsi, image_url=image_url, date=datetime.date.today())
-      return HttpResponseRedirect(reverse("artikel:article_home"))
+      return HttpResponse()
   return render(request, "create_article.html", context)
 
 # update artikel
-def update_artikel(request):
-  if request.method == "POST":
-    post_form = Post(request.POST)
+def update_artikel(request, id):
+  post_form = PostForm(request.POST)
+  if post_form.is_valid():
+    judul = post_form.cleaned_data["title"]
+    image_url = post_form.cleaned_data["image_url"]
+    deskripsi = post_form.cleaned_data["description"]
+
     post = Post.objects.get(id=id)
-    if post_form.is_valid():
-      judul = post_form.cleaned_data["title"]
-      deskripsi = post_form.cleaned_data["description"]
-      image_url = post_form.cleaned_data["image_url"]
+    post.title = judul
+    post.image_url = image_url
+    post.description = deskripsi
+    post.save()
+
+    article = {
+      'id': id,
+      'title': post.title,
+      'description': post.description,
+      'image_url': post.image_url
+    }
+    
+    data = {'article': article}
+    return JsonResponse(data)
 
 # delete artikel
 @csrf_exempt

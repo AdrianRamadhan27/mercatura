@@ -1,0 +1,222 @@
+{% extends 'base.html' %}
+
+{% block meta %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+  const card = function(article) {return`
+    <div class="shadow hover:shadow-xl hover:shadow-stone-500 w-[80vw] lg:w-[40vw] min-w-lg h-[80vh] bg-gradient-to-r from-purple-2 to-purple-1 rounded-lg shadow-md" id="post-${article.pk}">
+      <div class="w-full h-full">
+        <img name="img-url" class="article-image-url rounded-t-lg object-fill w-full h-40 p-0 w-full bg-transparent mb-2" src="${article.image_url}" alt="no photo" />
+        <div class="p-4">
+          <p name="title" class="article-title truncate overflow-hidden text-2xl font-bold tracking-tight text-pink-1">${article.title}</p>
+          <p name="date" class="article-date mb-3 font-normal text-xs text-white">${article.date}</p>
+          <div class="max-w-[75vw] max-h-[25vh] overflow-y-auto lg:max-w-[50vw] text-clip">
+            <p name="description" class="article-description mb-3 text-clip break-words font-normal text-white">${article.description}</p>
+          </div>
+        </div>
+
+        <div class="flex pr-4 pl-4 items-center justify-between">
+          <button onclick="showDetailArticle(${article.pk})" type="button" class="bottom-0 text-blue-200 hover:text-blue-400 hover:underline bg-transparent font-bold rounded-full text-sm text-center mr-3 md:mr-0">
+            Lihat selengkapnya
+          </button>
+          <div class="flex space-x-2 items-center">
+            <button onclick="showEdit(${article.pk})" type="button" class="bottom-0 text-purple-1 bg-gradient-to-r from-green to-green font-bold rounded-full text-sm px-5 py-2.5 text-center mr-3 md:mr-0">
+              Edit
+            </button>
+            <button onclick="postDelete(${article.pk})" type="button" class="bottom-0 text-purple-1 bg-gradient-to-r from-pink-1 to-pink-1 font-bold rounded-full text-sm px-5 py-2.5 text-center mr-3 md:mr-0">
+              Delete
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  `}
+  
+  const modalOpen = function() {  $(".modal-article").removeClass("hidden") }
+
+  const modalClose = function() { $(".modal-article").addClass("hidden") }
+
+  const modalUpdateOpen = function() {  $(".modal-update").removeClass("hidden") }
+
+  const modalUpdateClose = function() { $(".modal-update").addClass("hidden") }
+
+  const showArticle = function() {
+    $.get("/artikel/json/", function(data) {
+      for(var i = 0; i < data.length; i++){
+        var article = {
+          pk : data[i].pk,
+          ...data[i].fields
+        };
+
+        $(".post-cards").append(card(article));
+      }
+    }
+  )
+  };
+
+  const showDetailArticle = function(pk) {
+    post_id = `#post-${pk}`
+    title = $(post_id).find(".article-title").text();
+    description = $(post_id).find(".article-description").text();
+    date = $(post_id).find(".article-date").text();
+    image_url = $(`#post-${pk} .article-image-url`).attr("src");
+
+
+    $(".detail-title").text(title);
+    $(".detail-description").text(description);
+    $(".detail-date").text(date);
+    $(".detail-image-url").attr("src", image_url);
+
+    modalOpen();
+  };
+
+  const showEdit = function(pk) {
+    post_id = `#post-${pk}`
+    title = $(post_id).find(".article-title").text();
+    description = $(post_id).find(".article-description").text();
+    date = $(post_id).find(".article-date").text();
+    image_url = $(post_id).find(".article-image-url").attr("src");
+
+    $("#form-id").val(pk);
+    $(".update-title").val(title);
+    $(".update-description").val(description);
+    $(".update-img-url").val(image_url);
+
+    modalUpdateOpen();
+  }
+
+  function submitUpdate() {
+    console.log('halo');
+    var idInput = $('.form-id').val();
+    var titleInput = $('.update-title').val();
+    var descriptionInput = $('.update-description').val();
+    var imgUrlInput = $('.update-img-url').val();
+
+    if (titleInput && descriptionInput && imgUrlInput) {
+      $.post({
+        url: `/artikel/edit/${idInput}/`,
+        data: {
+          'id': idInput,
+          'title': titleInput,
+          'description': descriptionInput,
+          'image_url': imgUrlInput,
+          csrfmiddlewaretoken: "{{ csrf_token }}"
+        },
+        success: function (data) {
+          updateArtikel(data.article);
+        },
+      })
+    } else {
+      alert("Isi dari form tidak valid");
+    }
+
+    $("form#update-article").trigger("reset");
+    modalUpdateClose();
+    return false;
+  }
+
+  function updateArtikel(article) {
+    $(`#post-${article.id} .article-title`).text(article.title)
+    $(`#post-${article.id} .article-description`).text(article.description)
+    $(`#post-${article.id} .article-image-url`).attr("src", article.image_url)  
+  }
+
+  const postDelete = function(pk) {
+    var action = confirm("Apakah Anda yakin ingin menghapus artikel ini?");
+    if (action != false) {
+      $.ajax({
+        url: `/artikel/delete/${pk}`,
+        type: "DELETE",
+        success: function(data) { $(`#post-${pk}`).remove(); }
+      });
+    }
+  };
+
+  $(document).ready(
+    function() {
+      showArticle();
+
+      $(".modal-close").click(function() { modalClose(); });
+
+      $(".modal-update-close").click(function() { modalUpdateClose(); });
+    }
+  );
+</script>
+{% endblock meta %}
+
+{% load filters %}
+
+{% block content %}
+<div class="h-screen bg-cover overflow-y-auto gap-y-10 w-full">
+  <div class="post-cards grid grid-cols my-20 lg:flex lg:flex-wrap h-full w-full justify-center gap-4 font-poppins pl-4 pr-4">
+  </div>
+</div>
+
+<div class="modal-article bg-black/80 hidden absolute top-0 p-0 w-full overflow-hidden font-poppins border h-screen items-center justify-center">
+  <div class="flex flex-col justify-center h-full">
+    <div class="flex justify-center items-center h-full">
+      <div class ="flex flex-col w-[80%] h-[90%] overflow-y-auto bg-gradient-to-r from-purple-2 to-purple-1 rounded-lg p-8 hover:shadow-2xl hover:shadow-grey-800 drop-shadow-xl">    
+          <div class="flex justify-between items-center mb-2">
+            <h1 class="detail-title text-2xl text-white tracking-tight font-bold">Detail Artikel</h1>
+            <button class="modal-close">
+              <svg class="w-7 h-7" fill="white" stroke="white" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+          </div>
+
+          <img class="detail-image-url object-left object-none w-full p-0 w-full bg-transparent mb-3" src="" alt="no photo" />
+          <p class="detail-date mb-3 font-normal text-xs text-white"></p>
+          <div class="">
+            <p class="detail-description mb-3 text-clip break-words font-normal text-white"></p>
+          </div>
+      </div>  
+    </div>
+  </div>
+</div>
+
+<div class="modal-update bg-black/80 hidden absolute top-0 p-0 w-full overflow-hidden font-poppins border h-screen items-center justify-center">
+  <div class="flex flex-col justify-center h-full">
+    <div class="flex justify-center">
+      <div class = "flex flex-col bg-purple-3 rounded-lg p-8 gap-4 hover:shadow-2xl hover:shadow-grey-800 drop-shadow-xl">    
+          <div class="flex justify-between items-center">
+            <h1 class="text-2xl text-purple-2 font-bold">Edit Artikel</h1>
+            <button class="modal-update-close">
+              <svg class="w-7 h-7" fill="purple-2" stroke="black" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+          </div>
+
+          <form id="update-article"action="">
+            {% csrf_token %}
+                <div class="flex space-x-10">
+                  <div class="flex flex-col w-[50%] gap-4">
+                    <input class="form-control form-id" id="form-id" type="hidden" name="formId"/>
+                    <div class="flex flex-col items-start w-full">
+                      <p class="text-purple-1 text-lg font-semibold">Judul Artikel <span class="text-xs text-pink-1">* maksimal 100 karakter</span></p>
+                      {{ form.title|addclass:"update-title focus:outline-purple-1 caret-pink-1 shadow-lg rounded-lg py-2 px-2 w-full"}}
+                    </div>
+                    <div class="flex flex-col items-start justify-between">
+                      <p class="text-purple-1 text-lg font-semibold">Tautan Gambar</p>
+                      {{ form.image_url|addclass:"update-img-url focus:outline-purple-1 caret-pink-1 shadow-lg rounded-lg py-2 px-2 h-20 w-full"}}
+                    </div>
+                  </div>
+                  <div class="flex flex-col w-[50%] items-start justify-between">
+                    <p class="text-purple-1 text-lg font-semibold">Deskripsi <span class="text-xs text-pink-1">* maksimal 2000 karakter</span></p>
+                    {{ form.description|addclass:"update-description focus:outline-purple-1 caret-pink-1 shadow-lg rounded-lg w-full py-2 px-2 h-80"}}
+                  </div>
+                </div>
+      
+              <div class="font-poppins text-xs text-center font-bold text-pink-1 mt-2 mb-10">
+                {{ form.title.errors }}
+                {{ form.description.errors }}
+                {{ form.image_url.errors }}
+              </div>
+      
+              <button onclick="submitUpdate()" class="submit-update-article w-full">
+                <input class="text-white mt-2 w-auto bg-gradient-to-r hover:bg-gradient-to-l from-purple-1 to-pink-1 font-extrabold rounded-full text-md md:px-5 md:py-2 px-4 py-2 text-center mb-2" type="submit" name="submit" value="Simpan perubahan">
+              </button>
+            </div>
+          </form>
+      </div>  
+    </div>
+  </div>
+</div>
+{% endblock content %}

@@ -76,3 +76,10 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+
+# npm
+node_modules/
+package.json
+package-lock.json
+
+#

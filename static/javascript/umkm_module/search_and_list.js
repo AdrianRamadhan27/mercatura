@@ -48,7 +48,7 @@ $(document).ready(function(){
         var $form = $(this);
         var serializedData = $form.serialize();
         $.ajax({
-            url: "/umkm/search_umkm",
+            url: "/umkm/search_umkm/",
             type: "POST",
             data: serializedData,
             dataType: 'json',

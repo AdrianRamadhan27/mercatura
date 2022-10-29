@@ -1,19 +1,18 @@
+
+
 {% extends 'base.html' %}
 
 {% block meta %}
 <title>UMKM List</title>
 {% endblock meta %}
+
+
+
+{% block content %}  
 {% load static %}
 
-{% block script %}
-
-<script src="{% static 'umkm_module/search_and_list.js'%}" ></script>
-{% endblock script %}
-{% block content %}  
-
+<script src="{% static 'javascript/umkm_module/search_and_list.js'%}"></script>
     
-    
-</script>
 <div class="px-3 py-2">
     <h1 class="text-purple-2 font-poppins font-bold">Cari UemKaEm</h1>
     <!-- <p>Ingin tambahkan usahamu? <span><a href="{% url 'umkm_module:tambah_umkm' %}">Tambah</a></span></p> -->

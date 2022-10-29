@@ -9,7 +9,7 @@
         <img name="img-url" class="article-image-url rounded-t-lg object-fill w-full h-40 p-0 w-full bg-transparent mb-2" src="${article.image_url}" alt="no photo" />
         <div class="p-4">
           <p name="title" class="article-title truncate overflow-hidden text-2xl font-bold tracking-tight text-pink-1">${article.title}</p>
-          <p name="date" class="article-date mb-3 font-normal text-xs text-white">${article.date}</p>
+          <p name="date" class="article-date mb-3 font-normal text-xs text-white">Dibuat oleh ${article.author} pada ${article.date}</p>
           <div class="max-w-[75vw] max-h-[25vh] overflow-y-auto lg:max-w-[50vw] text-clip">
             <p name="description" class="article-description mb-3 text-clip break-words font-normal text-white">${article.description}</p>
           </div>
@@ -42,6 +42,7 @@
 
   const showArticle = function() {
     $.get("/artikel/json/", function(data) {
+      console.log(data)
       for(var i = 0; i < data.length; i++){
         var article = {
           pk : data[i].pk,
@@ -147,7 +148,11 @@
 {% load filters %}
 
 {% block content %}
-<div class="h-screen bg-cover overflow-y-auto gap-y-10 w-full">
+<div class="h-screen bg-cover overflow-y-auto font-poppins gap-y-10 w-full">
+  <div class="w-full text-center space-y-2">
+    <p class="text-3xl mt-4 text-purple-1 font-bold">Kumpulan Artikel</p>
+    <p>Mercatura menyediakan informasi seputar UMKM yang dirangkum dalam kumpulan artikel yang menarik.</p>
+  </div>
   <div class="post-cards grid grid-cols my-20 lg:flex lg:flex-wrap h-full w-full justify-center gap-4 font-poppins pl-4 pr-4">
   </div>
 </div>

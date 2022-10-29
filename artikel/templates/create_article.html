@@ -8,9 +8,9 @@
       ...article,
       csrfmiddlewaretoken: "{{ csrf_token }}"
     },
-
-    success: function(data) {
-      $(location).attr('href',"/artikel/");
+    
+    function(data) {
+      window.location.href = "/artikel/";
       console.log(data);
     })
   }

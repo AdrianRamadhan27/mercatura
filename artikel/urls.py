@@ -5,6 +5,8 @@ app_name = 'artikel'
 
 urlpatterns = [
   path('', show_artikel, name="show_artikel"),
+  path('artikelku/', show_artikel_user, name="show_artikel_user"),
+  path('json/filter/', show_artikel_user, name="show_artikel_user"),
   path('create/', create_artikel, name="create_artikel"),
   path('edit/<int:id>/', update_artikel, name="update_artikel"),
   path('delete/<int:id>/', delete_artikel, name="delete_artikel"),

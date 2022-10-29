@@ -45,10 +45,10 @@ def tambah_umkm(request):
         deskripsi_usaha = request.POST.get('deskripsi_usaha')
         lokasi_usaha = request.POST.get('lokasi_usaha')
         email_usaha = request.POST.get('email_usaha')
-        if request.POST.get('website_usaha') is None:
+    
+        website_usaha = request.POST.get('website_usaha')
+        if website_usaha == '':
             website_usaha = "https://www.google.com/search?q=" + nama_usaha
-        else:
-            website_usaha = request.POST.get('website_usaha')
         logo_upload = request.FILES['logo_usaha']
         fss = FileSystemStorage()
         file = fss.save(logo_upload.name, logo_upload)

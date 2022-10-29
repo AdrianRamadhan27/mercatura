@@ -48,7 +48,7 @@ BIDANG_USAHA = [
 class UMKMForm(forms.ModelForm):
     
     nama_usaha = forms.CharField(label="Nama Usaha", widget=forms.TextInput(attrs={"name": "nama_usaha", "class": "border-4"}))
-    bidang_usaha = forms.CharField(label="Kuliner",widget=forms.RadioSelect(choices=BIDANG_USAHA, attrs={"name": "bidang_kuliner"}))
+    bidang_usaha = forms.CharField(label="Bidang Usaha",widget=forms.RadioSelect(choices=BIDANG_USAHA, attrs={"name": "bidang_kuliner"}))
     deskripsi_usaha = forms.CharField(label="Deskripsi Usaha",widget=forms.Textarea(attrs={"name": "deskripsi_usaha", "class": "border-4"}))
     email_usaha = forms.EmailField(label="Email Usaha",widget=forms.EmailInput(attrs={"name": "email_usaha", "class": "border-4"}))
     lokasi_usaha = forms.CharField(label="Lokasi Usaha",widget=forms.Select(choices=PROVINSI,attrs={"name": "lokasi_usaha"}))
@@ -65,8 +65,32 @@ class UMKMForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(UMKMForm, self).__init__(*args, **kwargs)
         self.fields['website_usaha'].required = False
+         
+        for field in self.fields.values():
+            field.error_messages = {'required':'*'}
 
 class SearchForm(forms.Form):
-    search_query = forms.CharField(label="Kata Kunci",widget=forms.TextInput(attrs={"name": "search_query", "class": "border-4"}), required=False)
-    bidang_usaha = forms.CharField(label="Bidang", widget=forms.Select(choices=[("", "Bidang apapun")]+BIDANG_USAHA, attrs={"name": "bidang_usaha"}), required=False)
-    lokasi_usaha = forms.CharField(label="Lokasi", widget=forms.Select(choices=[("", "Lokasi manapun")]+PROVINSI, attrs={"name": "lokasi_usaha"}), required=False)
+    search_query = forms.CharField(
+        label="",
+        widget=forms.TextInput(
+            attrs={
+                "name": "search_query", 
+                "class": "font-poppins p-2 rounded-sm border border-2 w-full", 
+                "placeholder": "Masukkan kata kunci"}), 
+        required=False)
+    bidang_usaha = forms.CharField(
+        label="", 
+        widget=forms.Select(
+            choices=[("", "Semua Bidang")]+BIDANG_USAHA, 
+            attrs={
+                "name": "bidang_usaha", 
+                "class": "font-poppins bg-gray-200 border border-gray-300 text-gray-900 text-sm rounded-sm focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                }), 
+                required=False)
+    lokasi_usaha = forms.CharField(label="", 
+        widget=forms.Select(choices=[("", "Semua Lokasi")]+PROVINSI, 
+        attrs={
+            "name": "lokasi_usaha",
+            "class": "font-poppins bg-gray-200 border border-gray-300 text-gray-900 text-sm rounded-sm focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+            }), 
+        required=False)

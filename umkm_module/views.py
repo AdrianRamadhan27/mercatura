@@ -5,7 +5,7 @@ from umkm_module.models import UMKM
 from django.http import HttpResponse, JsonResponse
 from django.core import serializers
 from django.core.files.storage import FileSystemStorage
-
+from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
@@ -36,7 +36,7 @@ def detail_umkm(request, id):
 
     return render(request, 'umkm_detail.html', context)
 
-
+@login_required(login_url='/login/')
 def tambah_umkm(request):
     form = UMKMForm(request.POST)
     if request.method == 'POST' and request.FILES['logo_usaha']:

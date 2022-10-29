@@ -3,7 +3,10 @@ from django.http import JsonResponse
 from .models import Post
 from django.shortcuts import redirect
 from .forms import PostForm
+from django.contrib.auth.decorators import login_required
 
+
+@login_required(login_url='/login')
 def create_post(request):
     posts = Post.objects.all()
     response_data = {}
@@ -25,3 +28,10 @@ def create_post(request):
         return JsonResponse(response_data)
 
     return render(request, 'create_post.html', {'posts':posts, 'form':form}) 
+
+def show_kritiksaran(request):
+    posts = Post.objects.all()
+    context={
+        'posts':posts,
+    }
+    return render(request, "show_kritiksaran.html", context)

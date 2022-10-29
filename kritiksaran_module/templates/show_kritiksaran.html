@@ -1,0 +1,34 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    </head>
+    <style>
+        .col p-4 d-flex flex-column position-static {
+            background-color:  #E2DBFD;
+            font-weight: bolder;
+        }
+    </style>
+    <body>
+        <h1 style="color: black; padding-left: 25mm ; font:Poppins;">Kritik dan Saran </h1>
+        <div class="container pt-5">
+            
+            <div class="row mb-2 posts">
+                    {% for post in posts %}
+                    <div class="col-sm-3 col-md-10">
+                        <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                            <div class="col p-4 d-flex flex-column position-static" style="background: #E2DBFD;">
+                                <h3 class="mb-0">{{post.title}}</h3>
+                                <p class="mb-auto">{{post.description}}</p>
+                                <p class="mb-auto">{{post.pub_date}}</p>
+                                <p class="mb-auto">{{post.user}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    
+            </div>
+        </div>
+
+    </body>
+    
+</html>

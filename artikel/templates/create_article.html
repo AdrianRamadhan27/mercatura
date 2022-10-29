@@ -37,12 +37,16 @@
 
 {% block content %}
 <div class="h-screen w-full flex justify-center items-center font-poppins bg-purple-3">
-  <div class="flex flex-col w-[90%] h-full p-10 gap-6">
-    <div class="text-pink-1 text-center font-bold text-4xl mb-6"> 
-      <h1>Tambah Artikel Baru</h1>
+  <div class="flex flex-col w-[90%] p-10 gap-6">
+    <div  class="mb-6 text-center"> 
+      <h1 class="text-pink-1 font-bold text-4xl mb-4">Tambah Artikel Baru</h1>
+      <p>Artikelmu pasti sangat bermanfaat! Artikel milikmu nantinya akan ditampilkan pada halaman <span class="text-purple-1 font-semibold"><a href={% url 'artikel:show_artikel' %}>Kumpulan Artikel</a></span>.</p>
+      <div class="w-full flex justify-center pt-6">
+        <div class="w-[10%] border-b-4 border-pink-1"></div>
+      </div>
     </div>
   
-    <form method="POST" >
+    <form method="POST" class="max-h-screen">
       {% csrf_token %}
           <div class="flex space-x-10">
             <div class="flex flex-col w-[40%] gap-4">
@@ -68,7 +72,7 @@
         </div>
 
         <button class="submit-article w-full">
-          <input class="text-white mt-2 w-auto bg-gradient-to-r hover:bg-gradient-to-l from-purple-1 to-pink-1 font-extrabold rounded-full text-md md:px-5 md:py-2 px-4 py-2 text-center mb-2" type="submit" name="submit" value="Submit Article">
+          <input class="text-white mt-2 w-auto bg-gradient-to-r hover:bg-gradient-to-l from-purple-1 to-pink-1 font-extrabold rounded-full text-md md:px-5 md:py-2 px-4 py-3 text-center mb-2" type="submit" name="submit" value="Tambahkan Artikel">
         </button>
       </div>
     </form>

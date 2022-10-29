@@ -24,11 +24,8 @@ def show_artikel(request):
 # show artikel user
 @login_required(login_url='/login/')
 def show_artikel_user(request):
-  post = Post.objects.filter(author=request.user)
-  print(post)
   context = {
       'username': request.user.username,
-      'post': post,
       'form': PostForm()
   }
   return render(request, "history_article.html", context)

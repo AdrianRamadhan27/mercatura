@@ -106,7 +106,7 @@ class UMKMForm(forms.ModelForm):
         model = UMKM
   
         # specify fields to be used
-        fields = '__all__'
+        exclude = ["pemilik_usaha"]
 
     def __init__(self, *args, **kwargs):
         super(UMKMForm, self).__init__(*args, **kwargs)

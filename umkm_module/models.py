@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 class UMKM(models.Model):
@@ -9,3 +10,4 @@ class UMKM(models.Model):
     lokasi_usaha = models.CharField(max_length=50)
     website_usaha = models.URLField(default="https://www.google.com/")
     logo_usaha = models.ImageField(upload_to='images/')
+    pemilik_usaha = models.ForeignKey(User, on_delete=models.CASCADE, default=1)

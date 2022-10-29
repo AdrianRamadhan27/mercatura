@@ -22,11 +22,11 @@
                     var content = [];
                     content.push("<div class='flex'><img class='w-20 h-20 rounded-full mr-2' src="+ value.fields.logo_usaha+">")
                     content.push(`
-                        <div class="mb-8"> 
+                        <div class="mb-2 overflow-hidden"> 
                             <div class="font-poppins font-bold text-xl mb-2"><a class="text-purple-1 hover:text-purple-2 no-underline" href="/umkm/detail/`+value.pk+`">` + 
                                 value.fields.nama_usaha +
                             `</a></div>
-                            <p class="font-poppins text-sm text-purple-2 font-thin">`+
+                            <p class="font-poppins text-sm text-purple-2 font-thin truncate text-ellipsis">`+
                                 value.fields.deskripsi_usaha+
                             `</p>
                             <span class="font-poppins inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">` +
@@ -46,7 +46,6 @@
                     `);
                     cards.push(`
                         <div class="shadow-md w-full" id="umkm-`+ value.pk +`">
-                            <div class="h-20 lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden"></div>
                             <div class="border-r border-b border-l border-gray-400 lg:border-l lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal hover:bg-gray-100 text-white font-bold py-2 px-4">
                         ` + content.join("") + 
                         `
@@ -62,7 +61,7 @@
     $("#search-form").submit(function(e){
         e.preventDefault();
         $("#search-btn").prop('disabled', true);
-        $("#search-btn").text('Searching...');
+        $("#search-btn").text('Mencari...');
         var $form = $(this);
         var serializedData = $form.serialize();
         $.ajax({
@@ -72,7 +71,7 @@
             dataType: 'json',
             success: function (data) {
                 $("#search-btn").prop('disabled', false);
-                $("#search-btn").text('Search');
+                $("#search-btn").text('Cari');
                 var grid = [];
                 
                 $.each(data, function(index, value) {
@@ -80,11 +79,11 @@
                     var content = [];
                     content.push("<div class='flex'><img class='w-20 h-20 rounded-full mr-2' src="+ value.fields.logo_usaha+">")
                     content.push(`
-                        <div class="mb-8"> 
+                        <div class="mb-2 overflow-hidden"> 
                             <div class="font-poppins font-bold text-xl mb-2"><a class="text-purple-1 hover:text-purple-2 no-underline" href="/umkm/detail/`+value.pk+`">` + 
                                 value.fields.nama_usaha +
                             `</a></div>
-                            <p class="font-poppins text-sm text-purple-2 font-thin">`+
+                            <p class="font-poppins text-sm text-purple-2 font-thin truncate">`+
                                 value.fields.deskripsi_usaha+
                             `</p>
                             <span class="font-poppins inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">` +
@@ -104,8 +103,7 @@
                     `);
                     cards.push(`
                         <div class="shadow-md w-full" id="umkm-`+ value.pk +`">
-                            <div class="h-20 lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden"></div>
-                            <div class="border-r border-b border-l border-gray-400 lg:border-l lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal hover:bg-gray-100 text-white font-bold py-2 px-4">
+                            <div class="border-r border-b border-l border-gray-400 lg:border-l lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-3 flex flex-col justify-between leading-normal hover:bg-gray-100 text-white font-bold py-2 px-4">
                         ` + content.join("") + 
                         `
                             </div>

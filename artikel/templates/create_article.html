@@ -36,8 +36,8 @@
 {% load filters %}
 
 {% block content %}
-<div class="h-screen w-full flex justify-center items-center font-poppins bg-purple-3">
-  <div class="flex flex-col w-[90%] p-10 gap-6">
+<div class="h-full w-full flex justify-center items-center font-poppins bg-purple-3">
+  <div class="flex flex-col w-[90%] w-full p-10 gap-6">
     <div  class="mb-6 text-center"> 
       <h1 class="text-pink-1 font-bold text-4xl mb-4">Tambah Artikel Baru</h1>
       <p>Artikelmu pasti sangat bermanfaat! Artikel milikmu nantinya akan ditampilkan pada halaman <span class="text-purple-1 font-semibold"><a href={% url 'artikel:show_artikel' %}>Kumpulan Artikel</a></span>.</p>
@@ -46,22 +46,22 @@
       </div>
     </div>
   
-    <form method="POST" class="max-h-screen">
+    <form method="POST">
       {% csrf_token %}
-          <div class="flex space-x-10">
-            <div class="flex flex-col w-[40%] gap-4">
+          <div class="md:flex md:space-x-10 space-y-4 md:space-y-0">
+            <div class="flex flex-col md:w-[40%] w-full md:gap-4 space-y-4 md:space-y-0">
               <div class="flex flex-col items-start w-full">
-                <p class="text-purple-1 text-lg font-semibold">Judul</p>
-                {{ form.title|addclass:"inp-title caret-pink-1 shadow-lg rounded-lg py-2 px-2 w-full"}}
+                <p class="text-purple-1 text-lg font-semibold">Judul <span class="text-xs text-pink-1">* maksimal 100 karakter</span></p>
+                {{ form.title|addclass:"inp-title focus:outline-purple-1 caret-pink-1 shadow-lg rounded-lg py-2 px-2 w-full"}}
               </div>
               <div class="flex flex-col items-start justify-between">
                 <p class="text-purple-1 text-lg font-semibold">Tautan Gambar</p>
-                {{ form.image_url|addclass:"inp-img-url caret-pink-1 shadow-lg rounded-lg py-2 px-2 h-20 w-full"}}
+                {{ form.image_url|addclass:"inp-img-url focus:outline-purple-1 caret-pink-1 shadow-lg rounded-lg py-2 px-2 h-20 w-full"}}
               </div>
             </div>
-            <div class="flex flex-col w-[60%] items-start justify-between">
-              <p class="text-purple-1 text-lg font-semibold">Deskripsi</p>
-              {{ form.description|addclass:"inp-description focus:outline-purple-1 caret-pink-1 shadow-lg rounded-lg w-full py-2 px-2 h-80"}}
+            <div class="flex flex-col md:w-[60%] w-full md:items-start md:justify-between">
+              <p class="text-purple-1 text-lg font-semibold">Deskripsi <span class="text-xs text-pink-1">* maksimal 2000 karakter</span></p>
+              {{ form.description|addclass:"inp-description items-start focus:outline-purple-1 caret-pink-1 shadow-lg rounded-lg w-full py-2 px-2 md:h-80"}}
             </div>
           </div>
 

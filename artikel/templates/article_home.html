@@ -10,8 +10,8 @@
         <div class="p-4">
           <p name="title" class="article-title truncate overflow-hidden text-2xl font-bold tracking-tight text-pink-1">${article.title}</p>
           <p name="date" class="article-date mb-3 font-normal text-xs text-white">Dibuat oleh ${article.author} pada ${article.date}</p>
-          <div class="max-w-[75vw] max-h-[25vh] overflow-y-auto lg:max-w-[50vw] text-clip">
-            <p name="description" class="article-description pb-3 pt-4 text-clip break-words font-normal text-white">${article.description}</p>
+          <div class="max-w-[75vw] max-h-[25vh] lg:max-w-[50vw]">
+            <p name="description" class="article-description truncate overflow-hidden pb-3 pt-4 font-normal text-white">${article.description}</p>
           </div>
           <button onclick="showDetailArticle(${article.pk})" type="button" class="bottom-0 text-blue-200 hover:text-blue-400 hover:underline bg-transparent font-bold rounded-full text-sm text-center">
             Lihat selengkapnya
@@ -75,7 +75,7 @@
 {% load filters %}
 
 {% block content %}
-<div class="h-screen bg-purple-3 overflow-y-auto font-poppins gap-y-10 w-full">
+<div class="h-screen bg-purple-3 absolute overflow-y-auto font-poppins gap-y-10 w-full">
   <div class="w-full text-center space-y-2 p-4">
     <p class="text-3xl mt-4 text-purple-1 font-bold">Kumpulan Artikel</p>
     <p class="text-lg font-medium pt-2">Mercatura menyediakan informasi seputar UMKM yang dirangkum dalam kumpulan artikel yang menarik.</p>
@@ -88,25 +88,25 @@
       <a href="{% url 'artikel:create_artikel' %}">Buat Artikel</a>
     </button>
     <button type="button" class="bottom-0 bg-purple-1 font-bold rounded-lg bg-gradient-to-r from-pink-1 to-purple-1 text-sm px-5 py-2.5 text-white text-center mr-3 md:mr-0">
-      <a href="/artikel/artikelku/">Riwayat Artikel</a>
+      <a href="{% url 'artikel:show_artikel_user' %}">Riwayat Artikel</a>
     </button>
   </div>
   <div class="post-cards grid grid-cols lg:flex lg:flex-wrap h-full w-full justify-center gap-4 font-poppins pl-4 pr-4">
   </div>
 </div>
 
-<div class="modal-article bg-black/80 hidden absolute top-0 p-0 w-full overflow-hidden font-poppins h-screen items-center justify-center">
+<div class="modal-article bg-black/80 hidden relative top-0 p-0 w-full font-poppins h-screen items-center justify-center">
   <div class="flex flex-col justify-center h-full">
     <div class="flex justify-center items-center h-full">
       <div class ="flex flex-col w-[80%] h-[90%] overflow-y-auto bg-gradient-to-r from-purple-2 to-purple-1 rounded-lg p-8 hover:shadow-2xl hover:shadow-grey-800 drop-shadow-xl">    
-          <div class="flex justify-between items-center mb-2">
+          <div class="flex justify-between items-center pb-2 border-b-2 border-pink-1 mb-2">
             <h1 class="detail-title text-2xl text-white tracking-tight font-bold">Detail Artikel</h1>
             <button class="modal-close">
               <svg class="w-7 h-7" fill="white" stroke="white" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
             </button>
           </div>
 
-          <img class="detail-image-url object-left object-none w-full p-0 w-full bg-transparent mb-3" src="" alt="no photo" />
+          <img class="detail-image-url mt-1 object-left object-none w-full p-0 w-full bg-transparent mb-3" src="" alt="no photo" />
           <p class="detail-date mb-3 font-normal text-xs text-white"></p>
           <div class="">
             <p class="detail-description mb-3 text-clip break-words font-normal text-white"></p>

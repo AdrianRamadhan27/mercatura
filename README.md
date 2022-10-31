@@ -1,4 +1,5 @@
 # Tugas Kelompok Tengah Semester PBP - Mercatura
+![deployment](https://github.com/AdrianRamadhan27/mercatura/actions/workflows/dpl.yml/badge.svg)
 
 Nama anggota kelompok:
 - Aidah Novallia Putri - 2106653400

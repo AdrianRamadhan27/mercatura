@@ -30,6 +30,26 @@
                             <div class="col p-4 d-flex flex-column position-static" style="background-color: #E2DBFD">
                                 <h3 class="mb-0">{{post.title}}</h3>
                                 <p class="mb-auto">{{post.description}}</p>
+                                <p class ="mb-auto text-muted"> {{post.user.username}}</p>
+
+                                <div class="right floated">
+                                    <form action="{% url 'kritiksaran_module:setuju-post-view' %}" method="POST" class='setuju-form' id='{{post.id}}'>
+                                        {% csrf_token %}
+                                        <input type="hidden" name="post_id" value={{post.id}}>
+
+                                            <button type="submit" class="ui button setuju-btn{{post.id}}">
+                                                Setuju
+                                            </button>
+                                            <div class="ui grid">
+                                                <div class="column">
+                                                    <div class="setuju-count{{post.id}}"> {{post.num_setuju}} pengguna setuju</div>
+                                                </div>
+                                                
+                                            </div>
+                                    </form>
+                                </div>
+                                
+
                             </div>
                         </div>
                     </div>
@@ -38,28 +58,85 @@
             </div>
         </div>
 
+
     </body>
     <script src="/static/js/jquery-2.2.4.min.js"></script>
     <script src="/static/js/bootstrap.min.js"></script>	
     <script>
+
+
+        $.ajaxSetup({
+            beforeSend: function(xhr, settings) {
+                if (settings.type == 'POST' || settings.type == 'PUT' || settings.type == 'DELETE') {
+                    function getCookie(name) {
+                        var cookieValue = null;
+                        if (document.cookie && document.cookie != '') {
+                            var cookies = document.cookie.split(';');
+                            for (var i = 0; i < cookies.length; i++) {
+                                var cookie = jQuery.trim(cookies[i]);
+                                // Does this cookie string begin with the name we want?
+                                if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                                    break;
+                                }
+                            }
+                        }
+                        return cookieValue;
+                    }
+                    if (!(/^http:.*/.test(settings.url) || /^https:.*/.test(settings.url))) {
+                        // Only send the token to relative URLs i.e. locally.
+                        xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+                    }
+                }
+            }
+        });
+
+
+        
         $(document).on('submit', '#post-form',function(e){
             e.preventDefault();
             $.ajax({
                 type:'POST',
+
                 url:'{% url "kritiksaran_module:create_post" %}',
                 data:{
+                    username:$('#username').val(),
                     title:$('#title').val(),
+                    id:$('#id').val(),
                     description:$('#description').val(),
                     csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
                     action: 'post'
                 },
                 success:function(json){
                     document.getElementById("post-form").reset();
-                    $(".posts").prepend('<div class = "col-sm-3 col-md-10">'+
+                    const url = '{% url "kritiksaran_module:setuju-post-view" %}'
+
+                    $(".posts").append('<div class = "col-sm-3 col-md-10">'+
                         '<div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">' +
                             '<div class="col p-4 d-flex flex-column position-static" style="background-color: #E2DBFD">' +
                                 '<h3 class="mb-0">' + json.title + '</h3>' +
                                 '<p class="mb-auto">' + json.description + '</p>' +
+                                '<p class="mb-auto text-muted">' + json.username+ '</p>' +
+                                '<p class="mb-auto text-muted">' + "KRITIK SARAN BERHASIL DIBUAT "+ '</p>' +
+                                
+                                '<div class="right floated">'+
+
+                                    '<form action="' + url +'" method="POST" class="setuju-form" id="' + json.id +'">' + 
+                                        '{% csrf_token %}' + 
+                                        '<input type="hidden" name="post_id" value=' + json.id + '>'+
+
+                                            '<button type="submit" class="ui button setuju-btn{{'+json.id+'}}">'+
+                                                'Setuju'+
+                                            '</button>'+
+                                            '<div class="ui grid">'+
+                                                '<div class="column">'+
+                                                    '<div class="setuju-count{{'+json.id+'}}"> {{post.num_setuju}} pengguna setuju</div>'+
+                                                '</div>'+
+                                                
+                                            '</div>'+                                    
+                                    '</form>'+
+                                '</div>'+                                
+
                             '</div>' +
                         '</div>' +
                     '</div>' 
@@ -67,10 +144,51 @@
                 },
                 error : function(xhr,errmsg,err) {
                 $('#results').html("<div class='alert-box alert radius' data-alert>Oops! We have encountered an error: "+errmsg+
-                    " <a href='#' class='close'>&times;</a></div>"); // add the error to the dom
-                console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
+                    " <a href='#' class='close'>&times;</a></div>");
+                console.log(xhr.status + ": " + xhr.responseText); 
             }
             });
+
         });
+
+
+        $( document ).ready(function() {
+            $('.setuju-form').submit(function(e){
+                e.preventDefault()
+                
+                const post_id = $(this).attr('id')
+                
+                const likeText = $(`.setuju-btn${post_id}`).text()
+                const trim = $.trim(likeText)
+
+                const url = $(this).attr('action')
+                
+                let res;
+                const setujus = $(`.setuju-count${post_id}`).text()
+                const trimCount = parseInt(setujus)
+                
+                $.ajax({
+                    type: 'POST',
+                    url: '{% url "kritiksaran_module:setuju-post-view" %}',
+                    data: {
+                        'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').text(),
+                        'post_id':post_id,
+                    },
+                    success: function(response) {
+                            res = trimCount + 1
+                        
+
+                        $(`.setuju-count${post_id}`).text(res + " pengguna setuju")
+                    },
+                    
+                })
+
+            })
+        });
+            
+
     </script>
-</html>>
+
+
+
+</html>

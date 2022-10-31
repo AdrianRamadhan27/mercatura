@@ -15,9 +15,8 @@ from django.contrib.auth.decorators import login_required
 def show_artikel(request):
   post = Post.objects.all()
   context = {
-      'username': request.user.username,
-      'post': post,
-      'form': PostForm()
+    'username': request.user.username,
+    'post': post,
   }
   return render(request, "article_home.html", context)
 
@@ -25,8 +24,8 @@ def show_artikel(request):
 @login_required(login_url='/login/')
 def show_artikel_user(request):
   context = {
-      'username': request.user.username,
-      'form': PostForm()
+    'username': request.user.username,
+    'form': PostForm()
   }
   return render(request, "history_article.html", context)
 
@@ -39,7 +38,6 @@ def show_artikel_json(request):
 def show_artikel_json_filter(request):
   post = Post.objects.filter(author=request.user)
   return HttpResponse(serializers.serialize("json", post, use_natural_foreign_keys=True), content_type="application/json")
-
 
 # show artikel json by id
 def show_artikel_json_by_id(request, id):

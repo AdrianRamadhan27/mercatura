@@ -1,3 +1,4 @@
+from ssl import _create_default_https_context
 from django.shortcuts import render
 from django.http import JsonResponse
 from .models import Post, Setuju
@@ -5,7 +6,9 @@ from django.shortcuts import redirect
 from .forms import PostForm
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
+from django.core import serializers
+
 
 
 @login_required(login_url='/login')
@@ -26,9 +29,8 @@ def create_post(request):
         response_data['title'] = title
         response_data['description'] = description
         response_data['username'] = username
-        response_data['setuju'] = 0
+        response_data['setuju'] = setuju
 
-      
         n = Post.objects.create(
             title = title,
             description = description,
@@ -36,6 +38,7 @@ def create_post(request):
             username = username,
             )
         response_data['id'] = n.id
+        response_data['total-setuju']= n.setuju.all().count()
         return JsonResponse(response_data)
 
     return render(request, 'create_post.html', {'posts':posts, 'form':form,}) 
@@ -66,6 +69,21 @@ def setuju_post(request):
             post_obj.save()
             setuju.save()
     return redirect('kritiksaran_module:create_post')
+
+
+def total_number(request):
+    if request.method == 'GET':
+        post_obj = Post.objects.all().count()
+        return HttpResponse(post_obj)
+    return redirect('kritiksaran_module:create_post')
+
+
+def total_number_anon(request):
+    if request.method == 'GET':
+        post_obj = Post.objects.all().count()
+        return HttpResponse(post_obj)
+    return redirect('kritiksaran_module:show_kritiksaran')
+
 
 
 

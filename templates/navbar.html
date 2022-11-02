@@ -17,7 +17,7 @@
     </div>
 
     <nav :class="{'flex': open, 'hidden': !open}" class="flex-col flex-grow pb-4 md:pt-4 md:pb-0 hidden md:flex text-white md:items-center md:justify-start md:flex-row">
-      <a class="px-3 py-2 mt-2 text-sm font-semibold text-purple-2 bg-gray-200 rounded-lg md:mt-0 hover:text-gray-900 focus:text-pink-1 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="#">Home</a>
+      <a class="href="{% url 'mercatura:show_home' %}" px-3 py-2 mt-2 text-sm font-semibold text-purple-2 bg-gray-200 rounded-lg md:mt-0 hover:text-gray-900 focus:text-pink-1 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline">Home</a>
       <div @click.away="open = false" class="relative" x-data="{ open: false }">
         <button @click="open = !open" class="flex flex-row items-center ml-2 md:ml-0 w-full mt-2 text-sm font-semibold text-left bg-transparent rounded-lg md:w-auto md:inline md:mt-0 md:ml-4 hover:text-[#00F0B5] focus:text-[#00F0B5] hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline">
           <span>UMKM</span>

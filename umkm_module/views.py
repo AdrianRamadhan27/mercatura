@@ -84,7 +84,7 @@ def update_umkm(request, id):
     })
     if request.user != umkm_awal.pemilik_usaha:
         return redirect('umkm_module:show_umkm')
-    if request.method == 'POST':
+    if request.method == 'POST' and request.FILES['logo_usaha']:
         umkm_awal.nama_usaha = request.POST.get('nama_usaha')
         umkm_awal.bidang_usaha = request.POST.get('bidang_usaha')
         umkm_awal.deskripsi_usaha = request.POST.get('deskripsi_usaha')
@@ -95,10 +95,10 @@ def update_umkm(request, id):
         if website_usaha == '':
             website_usaha = "https://www.google.com/search?q=" + umkm_awal.nama_usaha
         umkm_awal.website_usaha = website_usaha
-        # logo_upload = request.FILES['logo_usaha']
-        # fss = FileSystemStorage()
-        # file = fss.save(logo_upload.name, logo_upload)
-        # umkm_awal.logo_usaha = fss.url(file)
+        logo_upload = request.FILES['logo_usaha']
+        fss = FileSystemStorage()
+        file = fss.save(logo_upload.name, logo_upload)
+        umkm_awal.logo_usaha = fss.url(file)
         umkm_awal.save()
         
         return redirect('/umkm/detail/'+str(id))

@@ -1,19 +1,4 @@
-
-
-{% extends 'base.html' %}
-
-{% block meta %}
-<title>UMKM List</title>
-{% endblock meta %}
-
-
-
-{% block content %}  
-{% load static %}
-
-<!-- <script src="{% static 'javascript/umkm_module/search_and_list.js'%}"></script> -->
-<script>
-    $(document).ready(function(){
+$(document).ready(function(){
     $.getJSON("/umkm/json/", function(data) {
         console.log(data);
         var grid = [];
@@ -122,39 +107,3 @@
         });
     });
 });  
-</script>
-    
-
-
-<div class="h-screen bg-purple-3 overflow-y-auto font-poppins gap-y-10 pt-40 w-full">
-    <div class="px-3 py-2">
-        <h1 class="text-purple-2 font-poppins font-bold">Cari UemKaEm</h1>
-        <!-- <p>Ingin tambahkan usahamu? <span><a href="{% url 'umkm_module:tambah_umkm' %}">Tambah</a></span></p> -->
-    
-        <form action="POST" id="search-form">
-            {% csrf_token %}
-            <div class="h-auto flex flex-col items-center justify-center p-2 lg:grid grid-cols-4">
-                {{form}}
-                <button
-                type="submit"
-                id="search-btn"
-                class="font-poppins p-2.5 bg-purple-1 text-white text-base font-medium rounded-sm w-full shadow-sm hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-300"
-            >
-                Cari
-            </button>
-            </div>
-            
-    
-            
-        </form>
-    
-        
-    
-        <div id="umkm-cards" class="h-auto flex flex-col items-center justify-center p-2 lg:grid grid-cols-3 gap-3">
-    
-            
-    
-        </div>
-    </div>    
-</div>
-{% endblock content %}

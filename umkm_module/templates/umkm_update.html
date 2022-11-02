@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block meta %}
-<title>Tambah UMKM</title>
+<title>Ubah UMKM</title>
 {% endblock meta %}
 
 {% block content %}  
@@ -10,7 +10,7 @@
 <div class="h-screen bg-purple-3 overflow-y-auto font-poppins gap-y-10 pt-32 w-full">
 
 <div class="px-3 py-2">
-    <h1 class="text-purple-2 font-poppins font-bold">Tambahkan Usahamu</h1>
+    <h1 class="text-purple-2 font-poppins font-bold">Ubah Data Usahamu</h1>
     <!-- <p>Ingin tambahkan usahamu? <span><a href="{% url 'umkm_module:tambah_umkm' %}">Tambah</a></span></p> -->
 
     <form action="" method="post" enctype="multipart/form-data">
@@ -35,7 +35,7 @@
                     {{form.bidang_usaha}}
                 </div>
                 <div class="w-full">
-                    <label for="logo_usaha" class="text-purple-1 font-semibold">Logo Usaha <span class="text-pink-1">*</span></label>
+                    <label for="logo_usaha" class="text-purple-1 font-semibold">Logo Usaha</label>
                     {{form.logo_usaha}}
                 </div>
                 

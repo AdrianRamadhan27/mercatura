@@ -18,8 +18,8 @@
         <br>
         <br>
         <br>
-        <h1 style="color: #5E239D; padding-left: 25mm; padding-top: 10mm; font-weight: 500; font-size: 300%;">Kritik dan Saran </h1>
-        <input type="button" id="submit" value="Sudah ada berapa kritik dan saran?" class="btn btn-dark btn-rounded" style="margin-left: 25mm;">
+        <h1 style="color: #5E239D; padding-left: 30mm; padding-top: 10mm; font-weight: 500; font-size: 300%;">Kritik dan Saran </h1>
+        <input type="button" id="submit" value="Sudah ada berapa kritik dan saran?" class="btn btn-dark btn-rounded" style="margin-left: 30mm;">
         <div class="container pt-5">
             {% if user.is_authenticated %}
             <form method="POST" id="post-form">
@@ -35,7 +35,7 @@
                 <button type="submit" class="btn btn-primary" style="background-color: #5E239D; color: white;">Submit</button>
             </form>
             {% else %}
-            <h2 style="color:#F61067;text-align:center;user-select: none;font-weight: 500;">Login untuk menambahkan kritik dan saran!</h2>
+            <h2 style="color:#F61067;text-align:left;user-select: none;font-weight: 500;">Login untuk menambahkan kritik dan saran!</h2>
             {% endif %}
 
             <br>

@@ -43,8 +43,8 @@
           </div>
         </div>
       </div>    
-      <a href="#" class="md:px-3 md:py-2 px-2 mt-2 text-sm font-semibold bg-transparent rounded-lg md:mt-0 hover:text-[#00F0B5] focus:text-[#00F0B5] focus:outline-none focus:shadow-outline">FAQ</a>
-      <a href="/kritiksaran" class="md:px-3 md:py-2 px-2 mt-2 text-sm font-semibold bg-transparent rounded-lg md:mt-0 hover:text-[#00F0B5] focus:text-[#00F0B5] focus:outline-none focus:shadow-outline">Kritik saran</a>
+      <a href="{% url 'faqmodule:show_faqforms' %}" class="md:px-3 md:py-2 px-2 mt-2 text-sm font-semibold bg-transparent rounded-lg md:mt-0 hover:text-[#00F0B5] focus:text-[#00F0B5] focus:outline-none focus:shadow-outline">FAQ</a>
+      <a href="{% url 'kritiksaran_module:create_post' %}" class="md:px-3 md:py-2 px-2 mt-2 text-sm font-semibold bg-transparent rounded-lg md:mt-0 hover:text-[#00F0B5] focus:text-[#00F0B5] focus:outline-none focus:shadow-outline">Kritik saran</a>
 
 
       {% if not user.is_authenticated %}

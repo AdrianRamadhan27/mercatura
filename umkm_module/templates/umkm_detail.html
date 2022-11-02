@@ -5,8 +5,8 @@
 {% endblock meta %}
 
 {% block content %}  
-<div class="font-poppins p-4 h-screen flex flex-col 
-items-center">
+<div class="h-screen bg-purple-3 overflow-y-auto font-poppins gap-y-10 pt-32 w-full">
+<div class="font-poppins p-4 h-screen flex flex-col items-center">
     <img class='w-40 h-40 rounded-full mr-2 border-4 border-purple-2 object-contain' src="{{umkm.logo_usaha}}" alt="logo_{{umkm.nama_usaha}}">
 
     <h1 class="text-purple-2 font-poppins font-bold">{{umkm.nama_usaha}}</h1>
@@ -55,6 +55,7 @@ items-center">
 
     {% endif %}    
 
+</div>
 </div>
 
 {% endblock content %}

@@ -25,8 +25,8 @@
         </button>
         <div x-show="open" x-transition:enter="transition ease-out duration-100" x-transition:enter-start="transform opacity-0 scale-95" x-transition:enter-end="transform opacity-100 scale-100" x-transition:leave="transition ease-in duration-75" x-transition:leave-start="transform opacity-100 scale-100" x-transition:leave-end="transform opacity-0 scale-95" class="absolute right-0 w-full mt-2 origin-top-right rounded-md shadow-lg md:w-48">
           <div class="px-2 py-2 bg-white rounded-md shadow dark-mode:bg-gray-800">
-            <a href="#" class="block px-4 py-2 mt-2 text-sm text-purple-1 font-semibold bg-transparent rounded-lg md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline">Daftar UMKM</a>
-            <a href="#" class="block px-4 py-2 mt-2 text-sm text-purple-1 font-semibold bg-transparent rounded-lg md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline">Tambah UMKM</a>
+            <a href="{% url 'umkm_module:show_umkm' %}" class="block px-4 py-2 mt-2 text-sm text-purple-1 font-semibold bg-transparent rounded-lg md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline">Daftar UMKM</a>
+            <a href="{% url 'umkm_module:tambah_umkm' %}" class="block px-4 py-2 mt-2 text-sm text-purple-1 font-semibold bg-transparent rounded-lg md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline">Tambah UMKM</a>
           </div>
         </div>
       </div>
@@ -42,9 +42,9 @@
             <a href="{% url 'artikel:show_artikel_user' %}" class="block mt-2 text-sm font-semibold text-purple-1 bg-transparent rounded-lg md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline">Riwayat Artikel</a>
           </div>
         </div>
-      </div>    
+      </div>
       <a href="{% url 'faqmodule:show_faqforms' %}" class="md:px-3 md:py-2 px-2 mt-2 text-sm font-semibold bg-transparent rounded-lg md:mt-0 hover:text-[#00F0B5] focus:text-[#00F0B5] focus:outline-none focus:shadow-outline">FAQ</a>
-      <a href="#" class="md:px-3 md:py-2 px-2 mt-2 text-sm font-semibold bg-transparent rounded-lg md:mt-0 hover:text-[#00F0B5] focus:text-[#00F0B5] focus:outline-none focus:shadow-outline">Kritik saran</a>
+      <a href="{% url 'kritiksaran_module:create_post' %}" class="md:px-3 md:py-2 px-2 mt-2 text-sm font-semibold bg-transparent rounded-lg md:mt-0 hover:text-[#00F0B5] focus:text-[#00F0B5] focus:outline-none focus:shadow-outline">Kritik saran</a>
 
       {% if not user.is_authenticated %}
       <button type="button" class="text-white w-[25%] md:hidden bg-gradient-to-r mt-2 hover:bg-gradient-to-l from-pink-1 to-pink-1 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2 text-center mr-3 md:mr-0">

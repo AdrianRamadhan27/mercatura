@@ -10,6 +10,7 @@
     <style>
         body {
             font-family: 'Poppins';
+            background-image: linear-gradient(to right, #ECE8FF, #E0FFF7);
         }
     </style>
     <body>
@@ -17,7 +18,7 @@
         <br>
         <br>
         <br>
-        <h1 style="color: purple; padding-left: 25mm; padding-top: 10mm; font-weight: 500; font-size: 300%;">Kritik dan Saran </h1>
+        <h1 style="color: #5E239D; padding-left: 25mm; padding-top: 10mm; font-weight: 500; font-size: 300%;">Kritik dan Saran </h1>
         <input type="button" id="submit" value="Sudah ada berapa kritik dan saran?" class="btn btn-dark btn-rounded" style="margin-left: 25mm;">
         <div class="container pt-5">
             {% if user.is_authenticated %}
@@ -34,14 +35,14 @@
                 <button type="submit" class="btn btn-primary" style="background-color: #5E239D; color: white;">Submit</button>
             </form>
             {% else %}
-            <h2 style="color:#5E239D;text-align:center;user-select: none;font-weight: 500;">Login untuk menambahkan kritik dan saran!</h2>
+            <h2 style="color:#F61067;text-align:center;user-select: none;font-weight: 500;">Login untuk menambahkan kritik dan saran!</h2>
             {% endif %}
 
             <br>
             <div class="row mb-2 posts">
                     {% for post in posts %}
                     <div class="col-sm-3 col-md-10">
-                        <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                        <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-outline h-md-250 position-relative">
                             <div class="col p-4 d-flex flex-column position-static" style="background-color: #E2DBFD">
                                 <h3 class="mb-0" style="color: #150433;">{{post.title}}</h3>
                                 <h5 class="mb-auto" style="color: #5A5A5A;">{{post.description}}</h5>
@@ -62,7 +63,7 @@
                                                 Setuju
                                             </button>
                                             {% else %}
-            <h5 style="color:#5E239D;text-align:left;user-select: none;font-weight: 200;color: #5E239D;">Login untuk setuju dengan kritik dan saran!</h5>
+            <h5 style="color:#5E239D;text-align:left;user-select: none;font-weight: 200;color: #F61067;">Login untuk setuju dengan kritik dan saran!</h5>
             {% endif %}
                                             <div class="ui grid">
                                                 <div class="column">
@@ -134,7 +135,7 @@
                     const url = '{% url "kritiksaran_module:setuju-post-view" %}'
 
                     $(".posts").append('<div class = "col-sm-3 col-md-10">'+
-                        '<div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">' +
+                        '<div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-outline h-md-250 position-relative">' +
                             '<div class="col p-4 d-flex flex-column position-static" style="background-color: #E2DBFD">' +
                                 '<h3 class="mb-0">' + json.title + '</h3>' +
                                 '<p class="mb-auto text-muted">' + json.description + '</p>' +

@@ -1,35 +1,9 @@
 {% extends 'base.html' %}
 
 {% block meta %}
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script>
-  const articlePost = function(article) {
-    $.post("/artikel/create/", {
-      ...article,
-      csrfmiddlewaretoken: "{{ csrf_token }}"
-    },
-    
-    function(data) {
-      window.location.href = "/artikel/";
-      console.log(data);
-    })
-  }
+{% load static %}
 
-  $(document).ready(
-    function() {
-      $(".submit-article").click(function() {
-        const article = {
-          title: $(".inp-title").val(),
-          image_url: $(".inp-img-url").val(),
-          description: $(".inp-description").val()
-        }
-    
-        articlePost(article);
-        return false;
-      });
-    }
-  )
-</script>
+<script src="{% static 'javascript/artikel/create_article.js' %}"></script>
 
 {% endblock meta %}
 

@@ -22,4 +22,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('mercatura.urls')),
     path('umkm/', include('umkm_module.urls')),
+    path('faq/', include('faqmodule.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

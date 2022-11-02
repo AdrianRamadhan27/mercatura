@@ -56,22 +56,8 @@
 
     </body>
     
+    <script src="{% static 'javascript/kritiksaran_module/show_kritiksaran.js' %}"></script>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>	
-
-    <script>
-        $(document).ready(function(){
-                $("#submit").click(function(){
-                $.ajax({
-                    type: 'GET',
-                    url: '{% url "kritiksaran_module:total_number_anon" %}',
-                    success:function(data){
-                    alert("Terdapat sebanyak " + data + " kritik dan saran");
-                    }
-                });
-            return false;
-            });
-        });
-    </script>
+  
 </html>
 {% endblock content %}

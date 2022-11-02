@@ -42,19 +42,23 @@ Halaman ini berisi detail rinci tentang UMKM. User dapat memberikan penilaian te
 
 ### Article Module (Aidah Novallia Putri)
 
-- Halaman daftar artikel
+- Halaman kumpulan artikel
 
-Halaman ini berisi daftar judul artikel seputar UMKM yang akan diurutkan berdasarkan artikel paling terkini.
+Halaman ini berisi daftar artikel seputar UMKM yang dibuat oleh user Mercatura.
 
 
-- Halaman unggah artikel
+- Halaman tambah artikel
 
-User dapat mengunggah artikel yaitu dengan mengisi judul dan isi artikel. Sebuah artikel akan menyimpan nama penulis, tanggal dan waktu diunggah, judul dan isi.
+User dapat mengunggah artikel yaitu dengan mengisi judul, tautan gambar, dan isi artikel. Sebuah artikel akan menyimpan username penulis, tanggal  diunggah, judul, gambar, dan isi.
 
-### Article Comment Module (Katrina Gisella Sembiring)
-- Halaman detail artikel & Komentar artikel
+- Halaman riwayat artikel
 
-Halaman ini berisi isi artikel. User dapat menambahkan komentar. Sebuah komentar akan menyimpan penulis komentar, isi komentar, waktu pembuatan komentar.
+Halaman ini berisi daftar artikel yang telah dibuat oleh user tertentu yang login pada saat itu. Apabila user tersebut belum pernah membuat artikel, maka list artikel kosong.
+
+### Kritik dan Saran Module (Katrina Gisella Sembiring)
+- Halaman membuat kritik dan saran
+
+Halaman ini berisi kritik dan saran yang User ingin sampaikan terkait dengan Mercatura. User juga dapat menyatakan bahwa ia setuju dengan kritik atau saran yang sudah dibaut sebelumnya dengan menekan tombol "Setuju". Membuat serta setuju dengan kritik dan saran hanya dibatasi untuk User yang sudah _log in_ saja, dan User yang tidak _log in_ hanya dapat melihat kritik dan saran yang sudah dibuat oleh User lain. 
 
 ### UMKM Module (Raden Mohamad Adrian Ramadhan Hendar Wibawa)
 - Halaman daftar UMKM

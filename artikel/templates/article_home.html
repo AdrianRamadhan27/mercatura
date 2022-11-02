@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block meta %}
+
+{% load static %}
+
+<script src="{% static 'javascript/artikel/article_home.js' %}"></script>
+
+{% endblock meta %}
+
+{% load filters %}
+
+{% block content %}
+
+
+<div class="h-screen bg-purple-3 overflow-y-auto font-poppins gap-y-10 pt-16 w-full">
+  <div class="w-full text-center space-y-2 p-4">
+    <p class="text-3xl mt-4 text-purple-1 font-bold">Kumpulan Artikel</p>
+    <p class="text-lg font-medium pt-2">Mercatura menyediakan informasi seputar UMKM yang dirangkum dalam kumpulan artikel yang menarik.</p>
+    <div class="w-full flex justify-center pt-6">
+      <div class="w-[10%] border-b-4 border-pink-1"></div>
+    </div>
+  </div>
+  <div class="flex space-x-4 pr-4 justify-center w-full md:justify-end md:w-[90%] mt-4 mb-4">
+    <button type="button" class="bottom-0 text-white bg-gradient-to-r from-pink-1 to-pink-1 font-bold rounded-lg text-sm px-5 py-2.5 text-center mr-3 md:mr-0">
+      <a href="{% url 'artikel:create_artikel' %}">Buat Artikel</a>
+    </button>
+    <button type="button" class="bottom-0 bg-purple-1 font-bold rounded-lg bg-gradient-to-r from-pink-1 to-purple-1 text-sm px-5 py-2.5 text-white text-center mr-3 md:mr-0">
+      <a href="{% url 'artikel:show_artikel_user' %}">Riwayat Artikel</a>
+    </button>
+  </div>
+  <div class="post-cards grid grid-cols lg:flex lg:flex-wrap h-full w-full justify-center gap-4 font-poppins pl-4 pr-4">
+  </div>
+</div>
+
+<div class="modal-article bg-black/80 hidden absolute top-0 p-0 w-full font-poppins h-screen items-center justify-center">
+  <div class="flex flex-col pt-4 justify-center h-full">
+    <div class="flex justify-center pt-12 items-center h-full">
+      <div class ="flex flex-col w-[80%] h-[90%] overflow-y-auto bg-gradient-to-r from-purple-2 to-purple-1 rounded-lg p-8 hover:shadow-2xl hover:shadow-grey-800 drop-shadow-xl">    
+          <div class="flex justify-between items-center pb-2 border-b-2 border-pink-1 mb-2">
+            <h1 class="detail-title max-w-[100%] break-words text-2xl text-white tracking-tight font-bold">Detail Artikel</h1>
+            <button class="modal-close">
+              <svg class="w-7 h-7" fill="white" stroke="white" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+          </div>
+
+          <img class="detail-image-url mt-1 object-scale-down object-left md:object-contain w-full p-0 w-full bg-transparent mb-3" src="" alt="no photo" />
+          <p class="detail-date mb-3 font-normal text-xs text-white"></p>
+          <div class="">
+            <p class="detail-description mb-3 text-clip break-words font-normal text-white"></p>
+          </div>
+      </div>  
+    </div>
+  </div>
+</div>
+
+
+{% endblock content %}

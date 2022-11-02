@@ -23,4 +23,5 @@ urlpatterns = [
     path('', include('mercatura.urls')),
     path('artikel/', include('artikel.urls')),
     path('umkm/', include('umkm_module.urls')),
+    path('faq/', include('faqmodule.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

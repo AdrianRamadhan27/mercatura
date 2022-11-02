@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'mercatura',
     'umkm_module',
     'artikel',
+    'faqmodule',
 ]
 
 MIDDLEWARE = [

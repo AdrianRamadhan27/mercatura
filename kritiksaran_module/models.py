@@ -8,7 +8,6 @@ class Post (models.Model):
     title = models.CharField(max_length=50)
     description = models.TextField()
     username = models.CharField(max_length=200)
-    liked = models.ManyToManyField(User, blank=True, related_name='likes')
     setuju = models.ManyToManyField(User, blank=True, related_name='setuju', default=0)
 
     def __str__(self):

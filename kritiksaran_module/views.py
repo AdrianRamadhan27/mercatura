@@ -8,10 +8,12 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
 from django.http import JsonResponse, HttpResponse
 from django.core import serializers
+from django.views.decorators.csrf import csrf_exempt
 
 
 
-@login_required(login_url='/login')
+# @login_required(login_url='/login')
+@csrf_exempt
 def create_post(request):
 
     posts = Post.objects.all()

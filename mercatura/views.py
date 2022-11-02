@@ -1,6 +1,8 @@
 from django.shortcuts import render
+from mercatura.models import Kisah
+from mercatura.forms import FormKisah
 import datetime
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
 from django.contrib.auth import authenticate, login, logout
 from django.urls import reverse
 from django.contrib import messages
@@ -9,7 +11,38 @@ from django.contrib.auth.models import User
 
 # Create your views here.
 def show_home(request):
-    return render(request, "home.html")
+    kisah = Kisah.objects.all()
+    context={
+        'kisah':kisah,
+    }
+    return render(request, "home.html", context)
+
+def create_kisah(request):
+
+    kisah = Kisah.objects.all()
+    response_data = {}
+    form = FormKisah()
+
+    if request.POST.get('action') == 'post':
+        name = request.POST.get('name')
+        age = request.POST.get('age')
+        workfield = request.POST.get('workfield')
+        description = request.POST.get('description')
+
+        response_data['name'] = name
+        response_data['age'] = age
+        response_data['workfield'] = workfield
+        response_data['description'] = description
+
+        n = Kisah.objects.create(
+            name = name,
+            age = age,
+            workfield = workfield,
+            description = description,
+        )
+        response_data['id'] = n.id
+        return JsonResponse(response_data)
+    return render(request, 'create_post.html', {'kisah':kisah, 'form':form,}) 
 
 def login_user(request):
     if request.method == 'POST':

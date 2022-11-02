@@ -12,23 +12,25 @@
 
 
 {% block content %}  
-<body class="bg-navy">
+<body class="bg-light">
     <br>
     <br>
     <br>
     <br>
     <br>
     <br>
-    <button
-        class="btn login_btn w-full bg-blue-700 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-        type="submit" value="Login">
-        Learn More
-    </button>
-    <div class="container-fluid bg-light text-center p-5 my-5 border">
-        <h1 class="block text-black-1000 display-6 font-bold mb-2"><u>Tentang Kami</u></h1>
+    <h1 class="display-1 text-black-1000 text-center font-poppins">Selamat datang di Mercatura!</h1> 
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <div class="container-fluid bg-purple-1 text-center p-5 my-5 border">
+        <h1 class="block text-white display-6 font-bold mb-2"><u>Tentang Kami</u></h1>
         <br>
         <br>
-        <p>Mercatura lahir dari keinginan kita untuk meningkatkan exposure UMKM dan menerangkan serta
+        <p class="text-white font-poppins">Mercatura lahir dari keinginan kita untuk meningkatkan exposure UMKM dan menerangkan serta
             menunjukkan kepentingan UMKM di Indonesia. UMKM di Indonesia bertanggung jawab atas peningkatan
             Produk Domestik Bruto (PDB) Indonesia sebanyak 61,97%, dan merupakan 70% dari tenaga
             kerja Indonesia. Dengan dibuatnya app ini, diharapkan kita dapat memberikan lampu sorot
@@ -37,32 +39,41 @@
             oleh para user yang pernah datang ke app ini sebagai motivasi pembaca untuk maju dan
             tetap berjuang di dunia kewirausahaan.
         </p>
-    </div>
-    <p>test</p>
-    <div class="container-fluid bg-light text-center p-5 my-5 border">
-        <h1 class="block text-black-1000 display-6 font-bold mb-2"><u>Kami akan senang</u></h1>
-        <h1 class="block text-black-1000 display-6 font-bold mb-2"><u>mendengar kisah anda</u></h1>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <h1 class="block text-white display-6 font-bold mb-2"><u>Kami akan senang</u></h1>
+        <h1 class="block text-white display-6 font-bold mb-2"><u>mendengar kisah anda</u></h1>
+        <br>
+        <br>
+        <p class="text-white font-poppins">Ceritakan kisah menginspirasi anda seputar bidang kewirausahaan di sini. 
+            Cerita Anda nantinya akan tampil pada bagian Kisah inspiratif.
+        </p>
         <br>
         <br>
         <div class="grid grid-cols-2 gap-4">
-            <form method="POST" class="bg-white shadow-md rounded px-10 pt-8 pb-10 mb-6">
+            <form method="POST" class="bg-white shadow-md rounded px-10 pt-8 pb-10 mb-6" id="post-form">
                 
                 {% csrf_token %}
-                <h1 class="block text-black-1000 text-xl font-bold mb-2">Register Account</h1>
                 <div class="mb-4">
-                    <label class="block text-gray-700 text-sm font-bold mb-2" for="username">Username</label>
-                    <input type="text" name="username" placeholder="Username" required
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="name">Nama</label>
+                    <input type="text" name="name" placeholder="Nama anda" required
                     class="form-control bg-charcoal-700 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                 </div>
                 
                 <div class="mb-6">
-                    <label class="block text-gray-700 text-sm font-bold mb-2" for="password1">Password</label>
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="password1">Usia</label>
                     <input type="password" name="password1" placeholder="Enter a Password" required
                     class="form-control bg-charcoal-700 border border-gray-300 text-gray-400 text-sm rounded-lg focus:ring-red-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                 </div>
                 
                 <div class="mb-6">
-                    <label class="block text-gray-700 text-sm font-bold mb-2" for="password2">Konfirmasi Password</label>
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="password2">Pekerjaan</label>
                     <input type="password" name="password2" placeholder="Confirm Password" required
                     class="form-control bg-charcoal-700 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                 </div>
@@ -72,7 +83,7 @@
                 {% endfor %}
                 <div class="mt-6">
                     <button
-                        class="btn login_btn w-full bg-blue-700 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                        class="btn login_btn w-full bg-purple-3 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                         type="submit" value="Login">
                         Register
                     </button>

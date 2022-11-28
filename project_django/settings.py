@@ -29,7 +29,7 @@ DEBUG = not PRODUCTION
 
 APP_NAME = os.getenv('APP_NAME', '')
 
-ALLOWED_HOSTS = [f'{APP_NAME}.up.railway.app']
+ALLOWED_HOSTS = ["*"]
 
 if not PRODUCTION:
     ALLOWED_HOSTS += ['.localhost', '127.0.0.1', '[::1]']

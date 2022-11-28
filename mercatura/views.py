@@ -14,41 +14,36 @@ from django.core import serializers
 # Create your views here.
 def show_home(request):
     kisah = Kisah.objects.all()
-    context={
-        'kisah':kisah,
-    }
-    return render(request, "home.html", context)
+    # response_data = {}
+    form = FormKisah(request.POST or None)
 
-def show_home_json(request):
-  kisah = Kisah.objects.all()
-  return HttpResponse(serializers.serialize("json", kisah, use_natural_foreign_keys=True), content_type="application/json")
-
-def create_kisah(request):
-
-    kisah = Kisah.objects.all()
-    response_data = {}
-    form = FormKisah()
-
-    if request.POST.get('action') == 'post':
+    if request.method == 'POST':
         name = request.POST.get('name')
         age = request.POST.get('age')
         workfield = request.POST.get('workfield')
         description = request.POST.get('description')
 
-        response_data['name'] = name
-        response_data['age'] = age
-        response_data['workfield'] = workfield
-        response_data['description'] = description
+        # response_data['name'] = name
+        # response_data['age'] = age
+        # response_data['workfield'] = workfield
+        # response_data['description'] = description
 
-        n = Kisah.objects.create(
+        Kisah.objects.create(
             name = name,
             age = age,
             workfield = workfield,
             description = description,
         )
-        response_data['id'] = n.id
-        return JsonResponse(response_data)
-    return render(request, 'create_post.html', {'kisah':kisah, 'form':form,}) 
+        return redirect('mercatura:show_home')
+        # response_data['id'] = n.id
+        # return JsonResponse(response_data)
+    return render(request, 'home.html', {'kisah':kisah, 'form':form}) 
+
+def show_home_json(request):
+  kisah = Kisah.objects.all()
+  return HttpResponse(serializers.serialize("json", kisah, use_natural_foreign_keys=True), content_type="application/json")
+
+
 
 def login_user(request):
     if request.method == 'POST':

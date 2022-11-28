@@ -29,7 +29,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
-CSRF_TRUSTED_ORIGINS = [f'mercatura-id.up.railway.app']
+CSRF_TRUSTED_ORIGINS = [f'{APP_NAME}.up.railway.app']
 
 # Application definition
 

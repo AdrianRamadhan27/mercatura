@@ -8,6 +8,8 @@ from django.urls import reverse
 from django.contrib import messages
 from django.shortcuts import redirect
 from django.contrib.auth.models import User
+from django.http import HttpResponse
+from django.core import serializers
 
 # Create your views here.
 def show_home(request):
@@ -16,6 +18,10 @@ def show_home(request):
         'kisah':kisah,
     }
     return render(request, "home.html", context)
+
+def show_home_json(request):
+  kisah = Kisah.objects.all()
+  return HttpResponse(serializers.serialize("json", kisah, use_natural_foreign_keys=True), content_type="application/json")
 
 def create_kisah(request):
 

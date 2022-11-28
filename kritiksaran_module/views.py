@@ -52,6 +52,9 @@ def show_kritiksaran(request):
     }
     return render(request, "show_kritiksaran.html", context)
 
+def show_kritiksaran_json(request):
+  posts = Post.objects.all()
+  return HttpResponse(serializers.serialize("json", posts, use_natural_foreign_keys=True), content_type="application/json")
 
 @login_required(login_url='/login')
 def setuju_post(request):

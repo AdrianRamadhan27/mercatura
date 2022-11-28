@@ -1,3 +1,19 @@
+function getCookie(name) {
+  var cookieValue = null;
+  if (document.cookie && document.cookie != '') {
+      var cookies = document.cookie.split(';');
+      for (var i = 0; i < cookies.length; i++) {
+          var cookie = cookies[i].trim();
+          // Does this cookie string begin with the name we want?
+          if (cookie.substring(0, name.length + 1) == (name + '=')) {
+              cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+              break;
+          }
+      }
+  }
+  return cookieValue;
+}
+
 const card = function(article) {return`
 <div class="shadow hover:shadow-xl hover:shadow-stone-500 w-[80vw] lg:w-[40vw] min-w-lg h-[65vh] bg-gradient-to-r from-purple-2 to-purple-1 rounded-lg shadow-md" id="post-${article.pk}">
   <div class="w-full h-full">
@@ -99,7 +115,7 @@ if (titleInput && descriptionInput && imgUrlInput) {
       'title': titleInput,
       'description': descriptionInput,
       'image_url': imgUrlInput,
-      csrfmiddlewaretoken: "{{ csrf_token }}"
+      csrfmiddlewaretoken: getCookie('csrftoken')
     },
     success: function (data) {
       updateArtikel(data.article);

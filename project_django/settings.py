@@ -25,10 +25,16 @@ PRODUCTION = os.getenv('DATABASE_URL') is not None
 SECRET_KEY = 'django-insecure-j^=_uu8*z)lyb+9%o9*3ehr^=(wy%w0%(n0y-79yjbt=gf*^g&'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = not PRODUCTION
 
-ALLOWED_HOSTS = ["*"]
+APP_NAME = os.getenv('APP_NAME', '')
 
+ALLOWED_HOSTS = [f'{APP_NAME}.up.railway.app']
+
+if not PRODUCTION:
+    ALLOWED_HOSTS += ['.localhost', '127.0.0.1', '[::1]']
+
+# For CSRF origin check verification
 CSRF_TRUSTED_ORIGINS = [f'{APP_NAME}.up.railway.app']
 
 # Application definition

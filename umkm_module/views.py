@@ -29,13 +29,27 @@ def show_json(request):
     umkms = UMKM.objects.all()
     return HttpResponse(serializers.serialize("json", umkms), content_type="application/json")
 
+
+def serialize_umkm(umkm):
+	obj = {}
+	obj['pk'] = umkm.pk
+	obj['fields'] = {}
+	obj['fields']['nama_usaha'] = umkm.nama_usaha
+	obj['fields']['bidang_usaha'] = umkm.bidang_usaha
+	obj['fields']['deskripsi_usaha'] = umkm.deskripsi_usaha
+	obj['fields']['lokasi_usaha'] = umkm.lokasi_usaha
+	obj['fields']['email_usaha'] = umkm.email_usaha
+	obj['fields']['website_usaha'] = umkm.website_usaha
+	obj['fields']['logo_usaha'] = umkm.logo_usaha
+	obj['fields']['pemilik_usaha'] = umkm.pemilik_usaha
+
+	return obj
+
 def show_json2(request):
     
     umkms = UMKM.objects.all()
-    response_data = {
-        "umkms": serializers.serialize("json", umkms),
-    }
-    return JsonResponse(response_data)
+    data = list(map(serialize_umkm, umkms))
+    return JsonResponse(data, safe=False)
 
 def search_umkm_json(request):
     if request.method == "POST":
@@ -43,11 +57,8 @@ def search_umkm_json(request):
         bidang_usaha = request.POST.get('bidang_usaha')
         lokasi_usaha = request.POST.get('lokasi_usaha')
         umkms = UMKM.objects.filter(nama_usaha__icontains=search_text, bidang_usaha__icontains=bidang_usaha, lokasi_usaha__icontains=lokasi_usaha)
-        response_data = {
-            "umkms": serializers.serialize("json", umkms),
-        }
-        
-        return JsonResponse(response_data)
+        data = list(map(serialize_umkm, umkms))
+        return JsonResponse(data, safe=False)
 
 
 def detail_umkm(request, id):

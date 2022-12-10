@@ -33,7 +33,7 @@ def show_artikel_json(request):
   return HttpResponse(serializers.serialize("json", posts, use_natural_foreign_keys=True), content_type="application/json")
 
 # show artikel json
-@login_required(login_url='/login/')
+@login_required(login_url='/auth/login/')
 def show_artikel_json_filter(request):
   post = Post.objects.filter(author=request.user)
   return HttpResponse(serializers.serialize("json", post, use_natural_foreign_keys=True), content_type="application/json")
@@ -64,7 +64,8 @@ def create_artikel(request):
     return HttpResponseBadRequest()
   return render(request, "create_article.html", context)
 
-@login_required(login_url='/login/')
+@csrf_exempt
+@login_required(login_url='/auth/login/')
 def create_artikel_json(request):
   context = {
     'form': PostForm()
@@ -124,7 +125,8 @@ def update_artikel(request, id):
   except:
     return HttpResponseNotFound(f"Article not exist (id: {id})")
 
-@login_required(login_url='/login/')
+@csrf_exempt
+@login_required(login_url='/auth/login/')
 def update_artikel_json(request, id):
   try:
     post_form = PostForm(request.POST)
@@ -165,7 +167,7 @@ def delete_artikel(request, id):
   except:
     return HttpResponseNotFound(f"Post not exist (id: {id})")
 
-@login_required(login_url='/login/')
+@login_required(login_url='/auth/login/')
 @csrf_exempt
 def delete_artikel_json(request, id):
   try:

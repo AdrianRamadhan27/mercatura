@@ -6,7 +6,7 @@ from django.http import HttpResponse, JsonResponse
 from django.core import serializers
 from django.core.files.storage import FileSystemStorage
 from django.contrib.auth.decorators import login_required
-
+from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
 def show_umkm(request):
@@ -84,7 +84,8 @@ def tambah_umkm(request):
     }
     return render(request, 'umkm_tambah.html', context)
 
-@login_required(login_url='/login/')
+@csrf_exempt
+@login_required(login_url='/auth/login/')
 def tambah_umkm_json(request):
     response_data = {}
     form = UMKMForm(request.POST)
@@ -174,7 +175,8 @@ def update_umkm(request, id):
     }
     return render(request, 'umkm_update.html', context)
 
-@login_required(login_url='/login/')
+@csrf_exempt
+@login_required(login_url='/auth/login/')
 def update_umkm_json(request, id):
     umkm_awal = UMKM.objects.get(id=id)
     form = UMKMForm(initial={

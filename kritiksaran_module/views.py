@@ -95,6 +95,7 @@ def show_kritiksaran_json(request):
   posts = Post.objects.all()
   return HttpResponse(serializers.serialize("json", posts, use_natural_foreign_keys=True), content_type="application/json")
 
+
 @login_required(login_url='/login')
 def setuju_post(request):
     user = request.user
@@ -114,7 +115,8 @@ def setuju_post(request):
             setuju.save()
     return redirect('kritiksaran_module:create_post')
 
-@login_required(login_url='/login')
+@csrf_exempt
+@login_required(login_url='/auth/login/')
 def setuju_post_json(request):
     user = request.user
     if request.method == 'POST':

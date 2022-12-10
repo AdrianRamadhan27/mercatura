@@ -4,6 +4,7 @@ from .models import Faq
 from .forms import FaqCards
 from django.http import HttpResponse, JsonResponse
 from django.core import serializers
+from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
 @login_required(login_url='/login')
@@ -29,6 +30,7 @@ def show_faqforms(request):
     
     return render(request, "show_faq.html", context)
 
+@csrf_exempt
 def create_faq_json(request):
     form = FaqCards(request.POST or None)
 
@@ -60,6 +62,7 @@ def create_faq_json(request):
                 # Insert any extra data if you want to pass data to Flutter
             }, status=401)
 
+@login_required(login_url='/auth/login')
 def show_faqforms_json(request):
   faqs = Faq.objects.all()
   return HttpResponse(serializers.serialize("json", faqs, use_natural_foreign_keys=True), content_type="application/json")

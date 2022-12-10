@@ -39,7 +39,7 @@ def show_home(request):
         # return JsonResponse(response_data)
     return render(request, 'home.html', {'kisah':kisah, 'form':form}) 
 
-
+@csrf_exempt
 def create_kisah_json(request):
     form = FormKisah(request.POST or None)
 

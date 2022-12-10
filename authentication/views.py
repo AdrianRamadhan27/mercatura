@@ -42,11 +42,11 @@ def register(request):
                     "message": "Register Berhasil!"
                     # Insert any extra data if you want to pass data to Flutter
                 }, status=200)
-            else:
-                return JsonResponse({
-                    "status": False,
-                    "message": "Register Gagal, username sudah dipakai."
-                }, status=401)
+
+    return JsonResponse({
+        "status": False,
+        "message": "Register Gagal, username sudah dipakai."
+    }, status=401)
 
 
 def logout(request):

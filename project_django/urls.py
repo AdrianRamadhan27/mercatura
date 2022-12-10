@@ -25,4 +25,5 @@ urlpatterns = [
     path('umkm/', include('umkm_module.urls')),
     path('kritiksaran/', include('kritiksaran_module.urls')),
     path('faq/', include('faqmodule.urls')),
+    path('auth/', include('authentication.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

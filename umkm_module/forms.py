@@ -92,13 +92,12 @@ class UMKMForm(forms.ModelForm):
             "class": "border border-2 p-2 rounded-md w-full"
             }), 
             required=False)
-    logo_usaha = forms.ImageField(
-        widget=forms.FileInput(attrs={
+    logo_usaha = forms.URLField(
+        widget=forms.URLInput(attrs={
             "name": "logo_usaha",
             "id": "logo_usaha", 
-            "accept":"image/",
-            "required": "True"
-            }),
+            "class": "border border-2 p-2 rounded-md w-full"
+            }), 
             required=False)
     # # create meta class
     class Meta:

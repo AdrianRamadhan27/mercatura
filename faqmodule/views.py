@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from .models import Faq
 from .forms import FaqCards
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.core import serializers
 
 # Create your views here.
@@ -28,6 +28,37 @@ def show_faqforms(request):
         return redirect('faqmodule:show_faqforms')
     
     return render(request, "show_faq.html", context)
+
+def create_faq_json(request):
+    form = FaqCards(request.POST or None)
+
+
+    if request.method == 'POST':
+        if form.is_valid():
+
+            title = request.POST.get('title')
+            description = request.POST.get('description')
+
+            faq = Faq.objects.create(
+                title=title, 
+                description=description,
+                user=request.user
+            )
+
+            response_data = {
+                "status": True,
+                "message": "Create FAQ Berhasil!"   
+            }
+            response_data['title'] = title
+            response_data['description'] = description
+            response_data['id'] = faq.id
+            return JsonResponse(response_data, status=200)
+        else:
+            return JsonResponse({
+                "status": False,
+                "message": "Create FAQ Gagal!"
+                # Insert any extra data if you want to pass data to Flutter
+            }, status=401)
 
 def show_faqforms_json(request):
   faqs = Faq.objects.all()

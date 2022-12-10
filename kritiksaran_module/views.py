@@ -45,6 +45,45 @@ def create_post(request):
 
     return render(request, 'create_post.html', {'posts':posts, 'form':form,}) 
 
+@csrf_exempt
+def create_post_json(request):
+    
+    form = PostForm(request.POST)
+    user = request.user
+
+    if request.method == 'POST':
+        if form.is_valid():
+            response_data = {
+                "status": True,
+                "message": "Kritik/Saran berhasil dibuat!"
+            }
+            title = request.POST.get('title')
+            description = request.POST.get('description')
+            user = request.user
+            username = request.user.username
+            setuju = 0
+
+            response_data['title'] = title
+            response_data['description'] = description
+            response_data['username'] = username
+            response_data['setuju'] = setuju
+
+            n = Post.objects.create(
+                title = title,
+                description = description,
+                user = user,
+                username = username,
+                )
+            response_data['id'] = n.id
+            response_data['total-setuju']= n.setuju.all().count()
+            return JsonResponse(response_data, status=200)
+        else:
+            return JsonResponse({
+                "status": False,
+                "message": "Input tidak valid"
+            }, status=401)
+
+
 def show_kritiksaran(request):
     posts = Post.objects.all()
     context={
@@ -74,6 +113,29 @@ def setuju_post(request):
             post_obj.save()
             setuju.save()
     return redirect('kritiksaran_module:create_post')
+
+@login_required(login_url='/login')
+def setuju_post_json(request):
+    user = request.user
+    if request.method == 'POST':
+        post_obj = get_object_or_404(Post, id=request.POST.get('post_id'))
+        post_id = post_obj.id
+        user = request.user
+
+        if user not in post_obj.setuju.all():
+            post_obj.setuju.add(user)
+
+        setuju, created = Setuju.objects.get_or_create(user=user, post_id=post_id)
+
+        if created:
+            post_obj.save()
+            setuju.save()
+
+    return JsonResponse({
+        "status": True,
+        "message": "Setuju Berhasil!"
+        # Insert any extra data if you want to pass data to Flutter
+    }, status=200)
 
 
 def total_number(request):

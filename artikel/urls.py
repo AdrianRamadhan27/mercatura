@@ -10,6 +10,9 @@ urlpatterns = [
   path('create/', create_artikel, name="create_artikel"),
   path('edit/<int:id>/', update_artikel, name="update_artikel"),
   path('delete/<int:id>/', delete_artikel, name="delete_artikel"),
+  path('create_json/', create_artikel_json, name="create_artikel_json"),
+  path('edit_json/<int:id>/', update_artikel_json, name="update_artikel_json"),
+  path('delete_json/<int:id>/', delete_artikel_json, name="delete_artikel_json"),
   path('json/', show_artikel_json, name="show_artikel_json"),
   path('json/<int:id>', show_artikel_json_by_id, name="show_artikel_json_by_id"),
 ]

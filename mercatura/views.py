@@ -10,7 +10,7 @@ from django.shortcuts import redirect
 from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.core import serializers
-
+from django.views.decorators.csrf import csrf_exempt
 # Create your views here.
 def show_home(request):
     kisah = Kisah.objects.all()
@@ -38,6 +38,45 @@ def show_home(request):
         # response_data['id'] = n.id
         # return JsonResponse(response_data)
     return render(request, 'home.html', {'kisah':kisah, 'form':form}) 
+
+
+def create_kisah_json(request):
+    form = FormKisah(request.POST or None)
+
+    if request.method == 'POST':
+        if form.is_valid:
+            name = request.POST.get('name')
+            age = request.POST.get('age')
+            workfield = request.POST.get('workfield')
+            description = request.POST.get('description')
+
+
+            kisah = Kisah.objects.create(
+                name = name,
+                age = age,
+                workfield = workfield,
+                description = description,
+            )
+
+            response_data = {
+                "status": True,
+                "message": "Create Kisah Berhasil!"
+                # Insert any extra data if you want to pass data to Flutter
+            }
+
+            response_data['name'] = name
+            response_data['age'] = age
+            response_data['workfield'] = workfield
+            response_data['description'] = description
+            response_data['id'] = kisah.id
+
+            return JsonResponse(response_data, status=200)
+        else:
+            return JsonResponse({
+                "status": False,
+                "message": "Create Kisah Gagal!"
+                # Insert any extra data if you want to pass data to Flutter
+            }, status=401)
 
 def show_home_json(request):
   kisah = Kisah.objects.all()

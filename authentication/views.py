@@ -5,6 +5,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.models import User
 from django.contrib import messages
 
+
 @csrf_exempt
 def login(request):
     username = request.POST['username']
@@ -20,11 +21,12 @@ def login(request):
         }, status=200)
 
     else:
-        
+
         return JsonResponse({
             "status": False,
             "message": "Login Gagal, Username atau Password tidak Valid."
         }, status=401)
+
 
 @csrf_exempt
 def register(request):
@@ -34,7 +36,8 @@ def register(request):
         password_two = request.POST.get('password2')
         username_ada = User.objects.filter(username=username).exists()
         if password_one == password_two and not username_ada:
-            user = User.objects.create_user(username=username,password=password_two)
+            user = User.objects.create_user(
+                username=username, password=password_two)
             if user is not None:
                 user.save()
                 return JsonResponse({
@@ -49,6 +52,7 @@ def register(request):
     }, status=401)
 
 
+@csrf_exempt
 def logout(request):
     auth_logout(request)
     return JsonResponse({

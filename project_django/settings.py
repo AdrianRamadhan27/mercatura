@@ -36,10 +36,9 @@ if not PRODUCTION:
 
 # For CSRF origin check verification
 
-if PRODUCTION:
-    CSRF_TRUSTED_ORIGINS = [f'{APP_NAME}.up.railway.app']
-else:
-    CSRF_TRUSTED_ORIGINS = ["https://mercatura-id.up.railway.app/"]
+
+CSRF_TRUSTED_ORIGINS = ['https://mercatura-id.up.railway.app']
+
 
 
 CORS_ALLOW_ALL_ORIGINS=True

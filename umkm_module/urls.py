@@ -7,6 +7,7 @@ app_name = "umkm_module"
 urlpatterns = [
     path('', show_umkm, name="show_umkm"),
     path('json/', show_json, name="show_json"),
+    path('json2/', show_json2, name="show_json2"),
     path('detail/<id>', detail_umkm,  name="detail_umkm"),
     path('add_umkm/', tambah_umkm, name="tambah_umkm"),
     path('search_umkm/', search_umkm, name="search_umkm"),

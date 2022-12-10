@@ -27,7 +27,15 @@ def search_umkm(request):
 def show_json(request):
     
     umkms = UMKM.objects.all()
-    return JsonResponse(serializers.serialize("json", umkms))
+    return HttpResponse(serializers.serialize("json", umkms), content_type="application/json")
+
+def show_json2(request):
+    
+    umkms = UMKM.objects.all()
+    response_data = {
+        "umkms": serializers.serialize("json", umkms),
+    }
+    return JsonResponse(response_data)
 
 def search_umkm_json(request):
     if request.method == "POST":
@@ -35,7 +43,10 @@ def search_umkm_json(request):
         bidang_usaha = request.POST.get('bidang_usaha')
         lokasi_usaha = request.POST.get('lokasi_usaha')
         umkms = UMKM.objects.filter(nama_usaha__icontains=search_text, bidang_usaha__icontains=bidang_usaha, lokasi_usaha__icontains=lokasi_usaha)
-        return JsonResponse(serializers.serialize("json", umkms))
+        response_data = {
+            "umkms": serializers.serialize("json", umkms),
+        }
+        return JsonResponse(response_data)
 
 
 def detail_umkm(request, id):

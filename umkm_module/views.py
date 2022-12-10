@@ -46,6 +46,7 @@ def search_umkm_json(request):
         response_data = {
             "umkms": serializers.serialize("json", umkms),
         }
+        
         return JsonResponse(response_data)
 
 

@@ -49,7 +49,7 @@ def detail_umkm(request, id):
 @login_required(login_url='/login/')
 def tambah_umkm(request):
     form = UMKMForm(request.POST)
-    if request.method == 'POST' and request.FILES['logo_usaha']:
+    if request.method == 'POST':
         nama_usaha = request.POST.get('nama_usaha')
         bidang_usaha = request.POST.get('bidang_usaha')
         deskripsi_usaha = request.POST.get('deskripsi_usaha')

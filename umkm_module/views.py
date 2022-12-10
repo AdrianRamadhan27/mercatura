@@ -50,6 +50,13 @@ def detail_umkm(request, id):
 
     return render(request, 'umkm_detail.html', context)
 
+def detail_umkm_json(request, id):
+    
+    umkm = UMKM.objects.get(id=id)
+    
+    return HttpResponse(serializers.serialize("json", [umkm]), content_type="application/json")
+
+
 @login_required(login_url='/login/')
 def tambah_umkm(request):
     form = UMKMForm(request.POST)
@@ -142,7 +149,7 @@ def update_umkm(request, id):
     })
     if request.user.username != umkm_awal.pemilik_usaha:
         return redirect('umkm_module:show_umkm')
-    if request.method == 'POST' and request.FILES['logo_usaha']:
+    if request.method == 'POST':
         umkm_awal.nama_usaha = request.POST.get('nama_usaha')
         umkm_awal.bidang_usaha = request.POST.get('bidang_usaha')
         umkm_awal.deskripsi_usaha = request.POST.get('deskripsi_usaha')
@@ -153,10 +160,7 @@ def update_umkm(request, id):
         if website_usaha == '':
             website_usaha = "https://www.google.com/search?q=" + umkm_awal.nama_usaha
         umkm_awal.website_usaha = website_usaha
-        logo_upload = request.FILES['logo_usaha']
-        fss = FileSystemStorage()
-        file = fss.save(logo_upload.name, logo_upload)
-        umkm_awal.logo_usaha = fss.url(file)
+        umkm_awal.logo_usaha = request.POST.get('logo_usaha')
         umkm_awal.save()
         
         return redirect('/umkm/detail/'+str(id))
@@ -170,21 +174,13 @@ def update_umkm(request, id):
 @login_required(login_url='/auth/login/')
 def update_umkm_json(request, id):
     umkm_awal = UMKM.objects.get(id=id)
-    form = UMKMForm(initial={
-        'nama_usaha': umkm_awal.nama_usaha,
-        'bidang_usaha': umkm_awal.bidang_usaha,
-        'deskripsi_usaha': umkm_awal.deskripsi_usaha,
-        'lokasi_usaha': umkm_awal.lokasi_usaha,
-        'email_usaha': umkm_awal.email_usaha,
-        'website_usaha': umkm_awal.website_usaha,
-        'logo_usaha': umkm_awal.logo_usaha,
-    })
     if request.user.username != umkm_awal.pemilik_usaha:
         return JsonResponse({
             "status": False,
             "message": "Anda bukan pemilik usaha"
         }, status=401)
-    if request.method == 'POST' and request.FILES['logo_usaha']:
+    
+    if request.method == 'POST':
         umkm_awal.nama_usaha = request.POST.get('nama_usaha')
         umkm_awal.bidang_usaha = request.POST.get('bidang_usaha')
         umkm_awal.deskripsi_usaha = request.POST.get('deskripsi_usaha')
@@ -196,9 +192,10 @@ def update_umkm_json(request, id):
             website_usaha = "https://www.google.com/search?q=" + umkm_awal.nama_usaha
         umkm_awal.website_usaha = website_usaha
         umkm_awal.logo_usaha = request.POST.get('logo_usaha')
+        umkm_awal.save()
         response_data = {
-            "status": False,
-            "message": "Anda bukan pemilik usaha"
+            "status": True,
+            "message": "Berhasil mengedit usaha"
         }
 
         response_data['nama_usaha'] = umkm_awal.nama_usaha

@@ -41,7 +41,7 @@
                 Cek website usaha
         </button>
     </a>
-    {% if umkm.pemilik_usaha == request.user %}
+    {% if umkm.pemilik_usaha == request.user.username %}
     <form action="/umkm/update_umkm/{{umkm.id}}">
         <button type="submit" class="flex font-poppins p-2.5 bg-green text-white text-base font-medium rounded-md shadow-sm hover:bg-purple-3 focus:outline-none focus:ring-2 focus:ring-green-300">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#FFFFFF" class="w-5 h-5 mr-2">

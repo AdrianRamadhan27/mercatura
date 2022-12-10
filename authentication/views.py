@@ -13,10 +13,12 @@ def login(request):
     user = authenticate(username=username, password=password)
     if user is not None:
         auth_login(request, user)
+        
         # Redirect to a success page.
         return JsonResponse({
             "status": True,
-            "message": "Login Berhasil!"
+            "message": "Login Berhasil!",
+            "user": request.user.username,
             # Insert any extra data if you want to pass data to Flutter
         }, status=200)
 
@@ -24,7 +26,8 @@ def login(request):
 
         return JsonResponse({
             "status": False,
-            "message": "Login Gagal, Username atau Password tidak Valid."
+            "message": "Login Gagal, Username atau Password tidak Valid.",
+            
         }, status=401)
 
 

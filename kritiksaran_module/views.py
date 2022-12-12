@@ -1,3 +1,4 @@
+import json
 from ssl import _create_default_https_context
 from django.shortcuts import render
 from django.http import JsonResponse
@@ -44,7 +45,8 @@ def create_post(request):
         return JsonResponse(response_data)
 
     return render(request, 'create_post.html', {'posts':posts, 'form':form,}) 
-
+    
+@csrf_exempt
 def create_post_json(request):
     body = request.body
     context = {

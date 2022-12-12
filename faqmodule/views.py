@@ -48,7 +48,7 @@ def create_faq_json(request):
             faq = Faq.objects.create(
                 title=title, 
                 description=description,
-                user=user
+                user=username
             )
             response_data = {
                 "status": True,
@@ -56,7 +56,7 @@ def create_faq_json(request):
             }
             response_data['title'] = title
             response_data['description'] = description
-            response_data['user'] = faq.user.username
+            response_data['username'] = faq.user.username
             response_data['id'] = faq.id
             return JsonResponse(response_data, status=200)
         

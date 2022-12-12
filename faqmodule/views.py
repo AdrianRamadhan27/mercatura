@@ -34,31 +34,30 @@ def show_faqforms(request):
 @csrf_exempt
 @login_required(login_url='/auth/login/')
 def create_faq_json(request):
-    form = FaqCards(request.POST)
 
 
     if request.method == 'POST':
-        if form.is_valid():
 
-            title = request.POST.get('title')
-            description = request.POST.get('description')
-            username = request.POST.get('username')
 
-            user = User.objects.get(username=username)
-            faq = Faq.objects.create(
-                title=title, 
-                description=description,
-                user=username
-            )
-            response_data = {
-                "status": True,
-                "message": "Create FAQ Berhasil!"   
-            }
-            response_data['title'] = title
-            response_data['description'] = description
-            response_data['username'] = faq.user.username
-            response_data['id'] = faq.id
-            return JsonResponse(response_data, status=200)
+        title = request.POST.get('title')
+        description = request.POST.get('description')
+        username = request.POST.get('username')
+
+        user = User.objects.get(username=username)
+        faq = Faq.objects.create(
+            title=title, 
+            description=description,
+            user=username
+        )
+        response_data = {
+            "status": True,
+            "message": "Create FAQ Berhasil!"   
+        }
+        response_data['title'] = title
+        response_data['description'] = description
+        response_data['username'] = faq.user.username
+        response_data['id'] = faq.id
+        return JsonResponse(response_data, status=200)
         
     return JsonResponse({
         "status": False,
@@ -66,7 +65,6 @@ def create_faq_json(request):
         # Insert any extra data if you want to pass data to Flutter
     }, status=401)
 
-@login_required(login_url='/auth/login')
 def show_faqforms_json(request):
   faqs = Faq.objects.all()
   return HttpResponse(serializers.serialize("json", faqs, use_natural_foreign_keys=True), content_type="application/json")

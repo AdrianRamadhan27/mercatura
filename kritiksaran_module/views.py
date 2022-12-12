@@ -9,6 +9,7 @@ from django.shortcuts import get_object_or_404
 from django.http import JsonResponse, HttpResponse
 from django.core import serializers
 from django.views.decorators.csrf import csrf_exempt
+import json
 
 
 
@@ -45,6 +46,7 @@ def create_post(request):
 
     return render(request, 'create_post.html', {'posts':posts, 'form':form,}) 
 
+@csrf_exempt
 def create_post_json(request):
     body = request.body
     context = {

@@ -43,7 +43,7 @@ def create_faq_json(request):
         description = request.POST.get('description')
         username = request.POST.get('username')
 
-        user = User.objects.get(username=username)
+
         faq = Faq.objects.create(
             title=title, 
             description=description,
@@ -53,10 +53,7 @@ def create_faq_json(request):
             "status": True,
             "message": "Create FAQ Berhasil!"   
         }
-        response_data['title'] = title
-        response_data['description'] = description
-        response_data['username'] = faq.user.username
-        response_data['id'] = faq.id
+
         return JsonResponse(response_data, status=200)
         
     return JsonResponse({

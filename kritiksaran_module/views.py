@@ -45,43 +45,56 @@ def create_post(request):
 
     return render(request, 'create_post.html', {'posts':posts, 'form':form,}) 
 
-@csrf_exempt
 def create_post_json(request):
-    
-    form = PostForm(request.POST)
-    user = request.user
+    body = request.body
+    context = {
+        'form': PostForm()
+    }
 
-    if request.method == 'POST':
-        if form.is_valid():
-            response_data = {
-                "status": True,
-                "message": "Kritik/Saran berhasil dibuat!"
-            }
-            title = request.POST.get('title')
-            description = request.POST.get('description')
-            user = request.user
-            username = request.user.username
-            setuju = 0
+    if request.method == "POST":
+        print(request.body)
+        title = request.POST.get("title")
+        description = request.POST.get("description")
+        user = request.user
+        username = request.user.username
 
-            response_data['title'] = title
-            response_data['description'] = description
-            response_data['username'] = username
-            response_data['setuju'] = setuju
+        try:
+            data = json.loads(body)
+            if title is None:
+                title = data['title']
+            if description is None:
+                description =data['description']
+        except:
+            pass
 
-            n = Post.objects.create(
-                title = title,
+
+        if title is not None and title != "" and description is not None and description != "":
+            post = Post.objects.create(title = title,
                 description = description,
                 user = user,
                 username = username,
-                )
-            response_data['id'] = n.id
-            response_data['total-setuju']= n.setuju.all().count()
-            return JsonResponse(response_data, status=200)
-        else:
+            )
+            response_data = {
+                "status": True,
+                "message": "Kritik/Saran berhasil dibuat"
+            }
+
+            response_data['title'] = title
+            response_data['description'] = description
+            response_data['id'] = post.id
             return JsonResponse({
-                "status": False,
-                "message": "Input tidak valid"
-            }, status=401)
+                "status": True, 
+                "data": response_data}, 
+                status=200)
+        return JsonResponse({
+            "status": False,
+            "message": "Input tidak valid!"
+            },
+            status=401)
+    return render(request, "create_post.html", context)
+
+    
+    
 
 
 def show_kritiksaran(request):
